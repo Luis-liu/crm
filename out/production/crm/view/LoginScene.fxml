@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="238.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <TextField fx:id="passwordTextField" layoutX="70.0" layoutY="81.0" prefHeight="34.0" prefWidth="314.0" promptText="请输入密码" />
+      <Button fx:id="loginBtn" layoutX="71.0" layoutY="137.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="314.0" text="登录" defaultButton="true">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" layoutX="70.0" layoutY="31.0" prefHeight="35.0" prefWidth="314.0" text="客户关系管理系统">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
+      <Label fx:id="errorLabel" layoutX="394.0" layoutY="81.0" prefHeight="34.0" prefWidth="84.0" text="密码错误！" textFill="#ee0606" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

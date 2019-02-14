@@ -1,31 +1,30 @@
 package controller;
 
-import entry.Member;
+import entity.Member;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.dialog.Dialogs;
+import util.Message;
 import util.StringUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController extends BaseController implements Initializable {
 
     @FXML
-    private Button myButton;
+    private Button searchButton;
     @FXML
-    private TableView<Member> myTable;
+    TableView<Member> myTable;
     @FXML
     private TableColumn<Member, Integer> userIdCol;
     @FXML
@@ -38,27 +37,28 @@ public class MainController implements Initializable {
      * 搜索字段
      */
     @FXML
-    private TextField myTextField;
+    private TextField searchTextField;
 
-    /**
-     * 客户姓名
-     */
-    @FXML
-    private TextField nameField;
-    /**
-     * 客户电话
-     */
-    @FXML
-    private TextField phoneField;
+    private ObservableList<Member> tableData = FXCollections.observableArrayList();
 
-    final ObservableList<Member> tableData = FXCollections.observableArrayList();
+    public MainController() {
+        tableData.addAll(new Member(1, "tom1", "1883225444"));
+        tableData.addAll(new Member(2, "tom2", "1883225444"));
+        tableData.addAll(new Member(3, "tom3", "1883225444"));
+        tableData.addAll(new Member(4, "tom4", "1883225444"));
+        tableData.addAll(new Member(5, "tom5", "1883225444"));
+        tableData.addAll(new Member(6, "tom6", "1883225444"));
+        tableData.addAll(new Member(7, "tom7", "1883225444"));
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        createDateCol.setCellValueFactory(new PropertyValueFactory<>("createDate"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        userIdCol.setCellValueFactory(cellData -> cellData.getValue().userIdProperty().asObject());
+        createDateCol.setCellValueFactory(cellData -> cellData.getValue().createDateProperty());
+        nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        phoneCol.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
+
+        myTable.setItems(tableData);
     }
 
     /**
@@ -66,38 +66,79 @@ public class MainController implements Initializable {
      * @param event
      */
     public void searchMember(ActionEvent event) {
-        System.out.println("Button Clicked!");
-
-        myTextField.setText("hellow");
-
+        String searchValue = searchTextField.getText();
+        if (StringUtil.isNotEmpty(searchValue) && tableData.size() > 0) {
+            ObservableList<Member> searchList = FXCollections.observableArrayList();
+            for (Member obj : tableData) {
+                // 模糊匹配姓名和手机号
+                if (obj.getName().contains(searchValue)
+                        || (StringUtil.isNotEmpty(obj.getPhone()) && obj.getPhone().contains(searchValue))) {
+                    searchList.addAll(obj);
+                }
+                myTable.setItems(searchList);
+            }
+        } else {
+            myTable.setItems(tableData);
+        }
     }
 
     /**
      * 弹出新增用户窗口
-     * @param event
+     * @param member
      */
-    public void showCreateMemberDialog(ActionEvent event) {
+    public void showCreateMemberDialog(Member member) {
         try {
-            Parent target  = FXMLLoader.load(getClass().getResource("../xml/AddMemberScene.fxml"));
-            Scene scene = new Scene(target); //创建场景；
-            Stage stg=new Stage();//创建舞台；
-            stg.setScene(scene); //将场景载入舞台；
-            stg.show(); //显示窗口；
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/AddMemberScene.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Person");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApp.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            MemberAddController memberAddController = loader.getController();
+            memberAddController.setDialogStage(dialogStage);
+            memberAddController.setMember(member);
+            memberAddController.setMainApp(mainApp);
+            memberAddController.setMainController(this);
+
+            dialogStage.show();
+
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * 保存用户信息
-     * @param event
-     */
-    public void saveMemberInfo(ActionEvent event) {
-        String name = nameField.getText();
-        String phone = phoneField.getText();
-        if (StringUtil.isNotEmpty(name) && StringUtil.isNotEmpty(phone)) {
-            tableData.add(new Member(name, phone));
-            myTable.setItems(tableData);
+    public void handleNewMember() {
+        showCreateMemberDialog(null);
+    }
+
+    public void handleEditMember() {
+        Member member = myTable.getSelectionModel().getSelectedItem();
+        if (member != null) {
+            showCreateMemberDialog(member);
+        } else {
+            Message.showWarnMsg("请选择一个客户进行编辑");
         }
+    }
+
+    public void addMember(Member member) {
+        member.setUserId(tableData.size() + 1);
+        tableData.addAll(member);
+    }
+
+    /**
+     * 判断会员重复
+     * @param name
+     * @return
+     */
+    public boolean isMemberExist(String name) {
+        Member member = new Member();
+        member.setName(name);
+        return tableData.contains(member);
     }
 }
