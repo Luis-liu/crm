@@ -3,11 +3,8 @@ package controller;
 import entity.Member;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.controlsfx.dialog.Dialogs;
 import util.Message;
 import util.StringUtil;
 

@@ -2,6 +2,7 @@ package sample;
 
 import controller.LoginController;
 import controller.MainController;
+import db.CommonDao;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,6 +23,11 @@ public class Main extends Application {
         this.primaryStage.setTitle("客户管理系统");
 
         initRootLayout();
+
+        /**
+         * 创建表
+         */
+        CommonDao.crateTable();
     }
 
     /**
