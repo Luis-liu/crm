@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="238.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luis.controller.LoginController">
    <children>
-      <TextField fx:id="passwordTextField" layoutX="70.0" layoutY="81.0" prefHeight="34.0" prefWidth="314.0" promptText="请输入密码" />
+      <PasswordField fx:id="passwordField" layoutX="70.0" layoutY="81.0" prefHeight="34.0" prefWidth="314.0" promptText="请输入密码" />
       <Button fx:id="loginBtn" layoutX="71.0" layoutY="137.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="314.0" text="登录" defaultButton="true">
          <font>
             <Font size="17.0" />

@@ -17,9 +17,10 @@
       <TableView fx:id="myTable" editable="true" layoutX="48.0" layoutY="152.0" prefHeight="329.0" prefWidth="764.0">
         <columns>
           <TableColumn fx:id="userIdCol" prefWidth="114.0" text="序号" />
-          <TableColumn fx:id="createDateCol" prefWidth="193.0" text="日期" />
-            <TableColumn fx:id="nameCol" prefWidth="182.0" text="客户" />
-            <TableColumn fx:id="phoneCol" prefWidth="274.0" text="电话" />
+          <TableColumn fx:id="createDateCol" prefWidth="167.0" text="日期" />
+            <TableColumn fx:id="nameCol" prefWidth="180.0" text="客户" />
+            <TableColumn fx:id="phoneCol" prefWidth="209.0" text="电话" />
+            <TableColumn fx:id="operateCol" prefWidth="93.0" text="操作" />
         </columns>
       </TableView>
       <Button fx:id="createMemberBtn" layoutX="374.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleNewMember" prefHeight="27.0" prefWidth="66.0" text="新建" />

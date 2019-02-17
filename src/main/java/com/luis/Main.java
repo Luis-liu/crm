@@ -1,8 +1,10 @@
 package com.luis;
 
+import com.luis.controller.DetailController;
 import com.luis.controller.LoginController;
 import com.luis.controller.MainController;
 import com.luis.db.CommonDao;
+import com.luis.entity.Member;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -65,8 +67,30 @@ public class Main extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
 
-            MainController mainController = loader.getController();
-            mainController.setMainApp(this);
+            MainController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 显示客户账单
+     * @param member
+     */
+    public void showDetailDialog(Member member) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/DetailScene.fxml"));
+            rootLayout = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+
+            DetailController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setMember(member);
         } catch (IOException e) {
             e.printStackTrace();
         }

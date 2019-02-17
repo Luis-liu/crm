@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,8 +23,6 @@ import java.util.ResourceBundle;
 public class MainController extends BaseController implements Initializable {
 
     @FXML
-    private Button searchButton;
-    @FXML
     TableView<Member> myTable;
     @FXML
     private TableColumn<Member, Integer> userIdCol;
@@ -33,6 +32,8 @@ public class MainController extends BaseController implements Initializable {
     private TableColumn<Member, String> nameCol;
     @FXML
     private TableColumn<Member, String> phoneCol;
+    @FXML
+    private TableColumn<Member, String> operateCol;
     /**
      * 搜索字段
      */
@@ -51,6 +52,7 @@ public class MainController extends BaseController implements Initializable {
         userIdCol.setCellValueFactory(cellData -> cellData.getValue().userIdProperty().asObject());
         createDateCol.setCellValueFactory(cellData -> cellData.getValue().createDateProperty());
         nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+//        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         phoneCol.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
 
         // 初始化数据，查询所有客户
@@ -58,15 +60,26 @@ public class MainController extends BaseController implements Initializable {
 
         myTable.setItems(tableData);
 
-        myTable.setRowFactory(tv -> {
-            TableRow<Member> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    Member member = row.getItem();
-                    System.out.println(member);
+        operateCol.setCellFactory((col) -> {
+            TableCell<Member, String> cell = new TableCell<Member, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    this.setGraphic(null);
+                    if (!empty) {
+                        Button detailBtn = new Button("账单");
+                        detailBtn.setPrefWidth(90.0);
+                        this.setGraphic(detailBtn);
+                        detailBtn.setOnMouseClicked((me) -> {
+                            Member member = this.getTableView().getItems().get(this.getIndex());
+                            mainApp.showDetailDialog(member);
+                        });
+                    }
                 }
-            });
-            return row;
+
+            };
+            return cell;
         });
     }
 

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -21,9 +22,7 @@ import java.util.ResourceBundle;
 public class LoginController extends BaseController implements Initializable {
 
     @FXML
-    private TextField passwordTextField;
-    @FXML
-    private Button loginBtn;
+    private PasswordField passwordField;
     @FXML
     private Label errorLabel;
 
@@ -32,7 +31,7 @@ public class LoginController extends BaseController implements Initializable {
     }
 
     public void login(ActionEvent event) {
-        String password = passwordTextField.getText();
+        String password = passwordField.getText();
         if ("1".equals(password)) {
             mainApp.showMainDialog();
         } else {
