@@ -31,8 +31,8 @@ public class BeanUtil {
                 SqlField sql = method.getAnnotation(SqlField.class);
                 if (sql != null) {
                     //这里可以从注解中获取值
-                    String name = sql.value();
-                    if (map.containsKey(name.toUpperCase())) {
+                    String name = sql.value().toUpperCase();
+                    if (map.containsKey(name)) {
                         Object value = map.get(name);
                         // 利用set方法赋值
                         method.invoke(obj, value);

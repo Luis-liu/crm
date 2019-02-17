@@ -4,6 +4,7 @@ import com.luis.annotation.SqlField;
 import javafx.beans.property.*;
 
 /**
+ * 铝合金
  * Author:   liuyuansheng
  * Date:     2019/2/17 16:29
  */
@@ -13,6 +14,10 @@ public class AluminumAlloy {
     private DoubleProperty height = new SimpleDoubleProperty();
     private DoubleProperty width = new SimpleDoubleProperty();
     private DoubleProperty price = new SimpleDoubleProperty();
+    private IntegerProperty userId = new SimpleIntegerProperty();
+
+    private DoubleProperty area = new SimpleDoubleProperty();
+    private DoubleProperty amount = new SimpleDoubleProperty();
 
     public int getId() {
         return id.get();
@@ -64,5 +69,63 @@ public class AluminumAlloy {
     @SqlField("price")
     public void setPrice(double price) {
         this.price.set(price);
+    }
+
+    public double getArea() {
+        return area.get();
+    }
+
+    public DoubleProperty areaProperty() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area.set(area);
+    }
+
+    public double getAmount() {
+        return amount.get();
+    }
+
+    public DoubleProperty amountProperty() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount.set(amount);
+    }
+
+    /**
+     * 刷新面积和金额
+     */
+    public void refresh() {
+        this.setArea(getWidth() * getHeight());
+        this.setAmount(getArea() * getPrice());
+    }
+
+    public int getUserId() {
+        return userId.get();
+    }
+
+    public IntegerProperty userIdProperty() {
+        return userId;
+    }
+
+    @SqlField("user_id")
+    public void setUserId(int userId) {
+        this.userId.set(userId);
+    }
+
+    @Override
+    public String toString() {
+        return "AluminumAlloy{" +
+                "id=" + id.getValue() +
+                ", userId=" + userId.getValue() +
+                ", height=" + height.getValue() +
+                ", width=" + width.getValue() +
+                ", price=" + price.getValue() +
+                ", area=" + area.getValue() +
+                ", amount=" + amount.getValue() +
+                '}';
     }
 }

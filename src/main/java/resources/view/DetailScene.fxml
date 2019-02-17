@@ -46,13 +46,13 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView prefHeight="318.0" prefWidth="565.0">
+                        <TableView editable="true" fx:id="alAlloyTable" prefHeight="318.0" prefWidth="565.0">
                           <columns>
                             <TableColumn fx:id="lvIdCol" prefWidth="56.0" text="序号" />
-                            <TableColumn fx:id="lvHeightCol" prefWidth="89.0" text="高" editable="true" />
-                              <TableColumn fx:id="lvWidthCol" prefWidth="95.0" text="宽" editable="true" />
+                            <TableColumn fx:id="lvHeightCol" prefWidth="89.0" text="高" />
+                              <TableColumn fx:id="lvWidthCol" prefWidth="95.0" text="宽" />
                               <TableColumn fx:id="lvAreaCol" prefWidth="101.0" text="平方" />
-                              <TableColumn fx:id="lvPriceCol" prefWidth="113.0" text="单价" editable="true" />
+                              <TableColumn fx:id="lvPriceCol" prefWidth="113.0" text="单价" />
                               <TableColumn fx:id="lvAmountCol" prefWidth="109.0" text="金额" />
                           </columns>
                         </TableView>
@@ -64,14 +64,14 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView prefHeight="318.0" prefWidth="565.0">
+                        <TableView editable="true" prefHeight="318.0" prefWidth="565.0">
                            <columns>
                               <TableColumn fx:id="fangIdCol" prefWidth="56.0" text="序号" />
-                              <TableColumn fx:id="fangHeightCol" prefWidth="83.0" text="高" editable="true" />
-                              <TableColumn fx:id="fangWidthCol" text="宽" editable="true" />
-                              <TableColumn fx:id="fangPiaoCol" prefWidth="79.0" text="飘" editable="true" />
+                              <TableColumn fx:id="fangHeightCol" prefWidth="83.0" text="高" />
+                              <TableColumn fx:id="fangWidthCol" text="宽" />
+                              <TableColumn fx:id="fangPiaoCol" prefWidth="79.0" text="飘" />
                               <TableColumn fx:id="fangAreaCol" prefWidth="78.0" text="平方" />
-                              <TableColumn fx:id="fangPriceCol" prefWidth="88.0" text="单价" editable="true" />
+                              <TableColumn fx:id="fangPriceCol" prefWidth="88.0" text="单价" />
                               <TableColumn fx:id="fangAmountCol" prefWidth="100.0" text="金额" />
                            </columns>
                         </TableView>
@@ -83,12 +83,12 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView prefHeight="316.0" prefWidth="565.0">
+                        <TableView editable="true" prefHeight="316.0" prefWidth="565.0">
                           <columns>
                             <TableColumn fx:id="otherIdCol" prefWidth="75.0" text="序号" />
-                            <TableColumn fx:id="otherNameCol"  prefWidth="178.0" text="名称" editable="true" />
-                              <TableColumn fx:id="otherCountCol" prefWidth="111.0" text="数量" editable="true" />
-                              <TableColumn fx:id="otherPriceCol" prefWidth="89.0" text="单价" editable="true" />
+                            <TableColumn fx:id="otherNameCol"  prefWidth="178.0" text="名称" />
+                              <TableColumn fx:id="otherCountCol" prefWidth="111.0" text="数量" />
+                              <TableColumn fx:id="otherPriceCol" prefWidth="89.0" text="单价" />
                               <TableColumn fx:id="otherAmountCol" prefWidth="111.0" text="金额" />
                           </columns>
                         </TableView>
@@ -100,7 +100,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView prefHeight="316.0" prefWidth="565.0">
+                        <TableView editable="true" prefHeight="316.0" prefWidth="565.0">
                            <columns>
                               <TableColumn prefWidth="84.0" text="序号" />
                               <TableColumn prefWidth="248.0" text="日期" />

@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.luis.util.Message;
+import javafx.util.converter.IntegerStringConverter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.URL;
@@ -23,7 +24,7 @@ import java.util.ResourceBundle;
 public class MainController extends BaseController implements Initializable {
 
     @FXML
-    TableView<Member> myTable;
+    private TableView<Member> myTable;
     @FXML
     private TableColumn<Member, Integer> userIdCol;
     @FXML

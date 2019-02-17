@@ -24,4 +24,14 @@ public class SqlConstant {
      * 查询用户
      */
     public static final String SQL_QUERY_MEMBER = "select * from member";
+
+    /**
+     * 新增铝合金
+     */
+    public static final String SQL_ADD_ALALLOY = "insert into aluminum_alloy(user_id, height, width, price) values(%s, '%s','%s','%s')";
+
+    /**
+     * 查询用户
+     */
+    public static final String SQL_QUERY_ALALLOY = "select * from aluminum_alloy where user_id=%s";
 }
