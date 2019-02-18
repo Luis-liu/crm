@@ -53,7 +53,6 @@ public class MainController extends BaseController implements Initializable {
         userIdCol.setCellValueFactory(cellData -> cellData.getValue().userIdProperty().asObject());
         createDateCol.setCellValueFactory(cellData -> cellData.getValue().createDateProperty());
         nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-//        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         phoneCol.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
 
         // 初始化数据，查询所有客户

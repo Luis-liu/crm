@@ -2,12 +2,14 @@ package com.luis.controller;
 
 import com.luis.entity.AluminumAlloy;
 import com.luis.entity.Member;
+import com.luis.enums.TabNameEnum;
 import com.luis.service.AlAlloyService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -26,7 +28,11 @@ public class DetailController extends BaseController implements Initializable {
     private Member member;
     @FXML
     private Label nameLabel, phoneLabel;
-    // 铝合金
+    @FXML
+    private TabPane detailTabPane;
+    /**
+     * 铝合金
+     */
     @FXML
     private TableView<AluminumAlloy> alAlloyTable;
     @FXML
@@ -60,6 +66,7 @@ public class DetailController extends BaseController implements Initializable {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setHeight(t.getNewValue());
             aluminumAlloy.refresh();
+            alAlloyService.updateAluminum(aluminumAlloy);
         });
         lvWidthCol.setCellValueFactory(cellData -> cellData.getValue().widthProperty().asObject());
         lvWidthCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
@@ -67,6 +74,7 @@ public class DetailController extends BaseController implements Initializable {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setWidth(t.getNewValue());
             aluminumAlloy.refresh();
+            alAlloyService.updateAluminum(aluminumAlloy);
         });
         lvAreaCol.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
         lvPriceCol.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
@@ -75,7 +83,41 @@ public class DetailController extends BaseController implements Initializable {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setPrice(t.getNewValue());
             aluminumAlloy.refresh();
+            alAlloyService.updateAluminum(aluminumAlloy);
         });
         lvAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
+    }
+
+    /**
+     * 添加数据
+     */
+    public void addDetailInfo() {
+        String name = detailTabPane.getSelectionModel().getSelectedItem().getText();
+        switch (name) {
+            case "铝合金":
+                AluminumAlloy  aluminumAlloy = new AluminumAlloy();
+                aluminumAlloy.setUserId(member.getUserId());
+                alAlloyService.addAluminum(aluminumAlloy);
+                alAlloyTableData.setAll(alAlloyService.queryAluminum(member.getUserId()));
+                break;
+            case "防盗网":
+                alAlloyService.addAluminum(new AluminumAlloy());
+                break;
+            case "其他":
+                alAlloyService.addAluminum(new AluminumAlloy());
+                break;
+            case "付款账单":
+                alAlloyService.addAluminum(new AluminumAlloy());
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 返回主界面
+     */
+    public void returnMainScene() {
+        mainApp.showMainDialog();
     }
 }

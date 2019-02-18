@@ -33,4 +33,14 @@ public class AlAlloyServiceTest {
             }
         }
     }
+
+    @Test
+    public void updateAluminumTest() {
+        AluminumAlloy aluminumAlloy = new AluminumAlloy();
+        aluminumAlloy.setId(1);
+        aluminumAlloy.setPrice(20.05);
+        aluminumAlloy.setHeight(28.05);
+        aluminumAlloy.setWidth(18.05);
+        alAlloyService.updateAluminum(aluminumAlloy);
+    }
 }

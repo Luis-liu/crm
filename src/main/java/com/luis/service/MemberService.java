@@ -69,7 +69,7 @@ public class MemberService {
         try {
             String sql = String.format(SqlConstant.SQL_UPDATE_MEMBER, member.getName(), member.getPhone(), member.getUserId());
             CommonDao.addInfo(sql);
-            System.out.println("add member success");
+            System.out.println("updateMember success");
         } catch (Exception e) {
             e.printStackTrace();
         }

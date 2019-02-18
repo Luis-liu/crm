@@ -1,6 +1,7 @@
 package com.luis.entity;
 
 import com.luis.annotation.SqlField;
+import com.luis.util.DoubleUtil;
 import javafx.beans.property.*;
 
 /**
@@ -18,6 +19,10 @@ public class AluminumAlloy {
 
     private DoubleProperty area = new SimpleDoubleProperty();
     private DoubleProperty amount = new SimpleDoubleProperty();
+
+    public AluminumAlloy() {
+
+    }
 
     public int getId() {
         return id.get();
@@ -99,8 +104,8 @@ public class AluminumAlloy {
      * 刷新面积和金额
      */
     public void refresh() {
-        this.setArea(getWidth() * getHeight());
-        this.setAmount(getArea() * getPrice());
+        this.setArea(DoubleUtil.multiply(getWidth(), getHeight()));
+        this.setAmount(DoubleUtil.multiply(getArea(), getPrice()));
     }
 
     public int getUserId() {

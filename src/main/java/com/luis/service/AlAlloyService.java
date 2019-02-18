@@ -19,6 +19,11 @@ import static com.luis.service.MemberService.QUERY_SQL;
  */
 public class AlAlloyService {
 
+    /**
+     * 查询
+     * @param userId
+     * @return
+     */
     public List<AluminumAlloy> queryAluminum(Integer userId) {
         try {
             List<AluminumAlloy> resultList = new ArrayList<>();
@@ -48,6 +53,21 @@ public class AlAlloyService {
                     aluminumAlloy.getHeight(), aluminumAlloy.getWidth(), aluminumAlloy.getPrice());
             CommonDao.addInfo(sql);
             System.out.println("add aluminumAlloy success");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 新增铝合金
+     * @param aluminumAlloy
+     */
+    public void updateAluminum(AluminumAlloy aluminumAlloy) {
+        try {
+            String sql = String.format(SqlConstant.SQL_UPDATE_ALALLOY,
+                    aluminumAlloy.getHeight(), aluminumAlloy.getWidth(), aluminumAlloy.getPrice(), aluminumAlloy.getId());
+            CommonDao.addInfo(sql);
+            System.out.println("updateAluminum success");
         } catch (Exception e) {
             e.printStackTrace();
         }

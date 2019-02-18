@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <AnchorPane prefHeight="751.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luis.controller.DetailController">
    <children>
@@ -40,13 +42,13 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TabPane layoutX="42.0" layoutY="111.0" prefHeight="346.0" prefWidth="565.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="detailTabPane" layoutX="42.0" layoutY="111.0" prefHeight="346.0" prefWidth="565.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="铝合金">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView editable="true" fx:id="alAlloyTable" prefHeight="318.0" prefWidth="565.0">
+                        <TableView fx:id="alAlloyTable" editable="true" prefHeight="318.0" prefWidth="565.0">
                           <columns>
                             <TableColumn fx:id="lvIdCol" prefWidth="56.0" text="序号" />
                             <TableColumn fx:id="lvHeightCol" prefWidth="89.0" text="高" />
@@ -86,7 +88,7 @@
                         <TableView editable="true" prefHeight="316.0" prefWidth="565.0">
                           <columns>
                             <TableColumn fx:id="otherIdCol" prefWidth="75.0" text="序号" />
-                            <TableColumn fx:id="otherNameCol"  prefWidth="178.0" text="名称" />
+                            <TableColumn fx:id="otherNameCol" prefWidth="178.0" text="名称" />
                               <TableColumn fx:id="otherCountCol" prefWidth="111.0" text="数量" />
                               <TableColumn fx:id="otherPriceCol" prefWidth="89.0" text="单价" />
                               <TableColumn fx:id="otherAmountCol" prefWidth="111.0" text="金额" />
@@ -120,5 +122,15 @@
             <TableColumn prefWidth="226.0" text="金额" />
         </columns>
       </TableView>
+      <Button layoutX="42.0" layoutY="76.0" mnemonicParsing="false" onAction="#addDetailInfo" prefHeight="29.0" prefWidth="71.0" text="添加">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="628.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#returnMainScene">
+         <image>
+            <Image url="/image/return.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
