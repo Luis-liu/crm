@@ -21,12 +21,12 @@ public class AlAlloyServiceTest {
         aluminumAlloy.setPrice(10.05);
         aluminumAlloy.setHeight(8.05);
         aluminumAlloy.setWidth(8.05);
-        alAlloyService.addAluminum(aluminumAlloy);
+        alAlloyService.add(aluminumAlloy);
     }
 
     @Test
     public void queryAluminumTest() {
-        List<AluminumAlloy> list = alAlloyService.queryAluminum(1);
+        List<AluminumAlloy> list = alAlloyService.query(1);
         if (list != null) {
             for (AluminumAlloy aluminumAlloy : list) {
                 System.out.println(aluminumAlloy);
@@ -41,6 +41,6 @@ public class AlAlloyServiceTest {
         aluminumAlloy.setPrice(20.05);
         aluminumAlloy.setHeight(28.05);
         aluminumAlloy.setWidth(18.05);
-        alAlloyService.updateAluminum(aluminumAlloy);
+        alAlloyService.update(aluminumAlloy);
     }
 }

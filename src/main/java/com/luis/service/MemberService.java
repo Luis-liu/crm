@@ -18,7 +18,7 @@ import java.util.Map;
  * @author: liuyuansheng
  * @create: 2019-02-16 11:09
  **/
-public class MemberService {
+public class MemberService implements CommonService<Member> {
 
     public static final String QUERY_SQL = " where name like '%s' or phone like '%s'";
 
@@ -26,7 +26,7 @@ public class MemberService {
      * 新增客户
      * @param member
      */
-    public void addMember(Member member) {
+    public void add(Member member) {
         try {
             String sql = String.format(SqlConstant.SQL_ADD_MEMBER, member.getName(), member.getPhone(), member.getCreateDate());
             CommonDao.addInfo(sql);
@@ -38,11 +38,12 @@ public class MemberService {
 
     /**
      * 模糊查询会员
-     * @param searchValue
+     * @param param
      * @return
      */
-    public List<Member> queryMember(String searchValue) {
+    public List<Member> query(Object param) {
         try {
+            String searchValue = param == null ? null : param.toString();
             List<Member> resultList = new ArrayList<>();
             String sql = SqlConstant.SQL_QUERY_MEMBER;
             if (StringUtils.isNotEmpty(searchValue)) {
@@ -65,11 +66,11 @@ public class MemberService {
      * 更新客户信息
      * @param member
      */
-    public void updateMember(Member member) {
+    public void update(Member member) {
         try {
             String sql = String.format(SqlConstant.SQL_UPDATE_MEMBER, member.getName(), member.getPhone(), member.getUserId());
             CommonDao.addInfo(sql);
-            System.out.println("updateMember success");
+            System.out.println("update member success");
         } catch (Exception e) {
             e.printStackTrace();
         }

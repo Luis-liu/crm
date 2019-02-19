@@ -27,7 +27,7 @@ public class BeanUtil {
             // 创建 对象
             Object obj = clazz.newInstance();
             //变量该对象的字段  
-            for (Method method : clazz.getDeclaredMethods()) {
+            for (Method method : clazz.getMethods()) {
                 SqlField sql = method.getAnnotation(SqlField.class);
                 if (sql != null) {
                     //这里可以从注解中获取值

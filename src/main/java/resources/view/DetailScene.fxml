@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -9,35 +10,36 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Circle?>
 
 <AnchorPane prefHeight="751.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luis.controller.DetailController">
    <children>
-      <Label layoutX="42.0" layoutY="39.0" prefHeight="29.0" prefWidth="47.0" text="姓名：">
+      <Label layoutX="42.0" layoutY="70.0" prefHeight="29.0" prefWidth="47.0" text="姓名：">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="nameLabel" layoutX="99.0" layoutY="39.0" prefHeight="29.0" prefWidth="90.0" text="王小二">
+      <Label fx:id="nameLabel" layoutX="99.0" layoutY="70.0" prefHeight="29.0" prefWidth="90.0" text="王小二">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="phoneLabel" layoutX="260.0" layoutY="39.0" prefHeight="29.0" prefWidth="104.0" text="193939848">
+      <Label fx:id="phoneLabel" layoutX="260.0" layoutY="70.0" prefHeight="29.0" prefWidth="104.0" text="193939848">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="203.0" layoutY="39.0" prefHeight="29.0" prefWidth="47.0" text="电话:">
+      <Label layoutX="203.0" layoutY="70.0" prefHeight="29.0" prefWidth="47.0" text="电话:">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="373.0" layoutY="39.0" prefHeight="29.0" prefWidth="47.0" text="地址：">
+      <Label layoutX="373.0" layoutY="70.0" prefHeight="29.0" prefWidth="47.0" text="地址：">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="addressLabel" layoutX="430.0" layoutY="39.0" prefHeight="29.0" prefWidth="212.0" text="江西省赣州市崇义县">
+      <Label fx:id="addressLabel" layoutX="430.0" layoutY="70.0" prefHeight="29.0" prefWidth="212.0" text="江西省赣州市崇义县">
          <font>
             <Font size="15.0" />
          </font>
@@ -66,15 +68,15 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView editable="true" prefHeight="318.0" prefWidth="565.0">
+                        <TableView fx:id="securityNetTable" editable="true" prefHeight="318.0" prefWidth="565.0">
                            <columns>
-                              <TableColumn fx:id="fangIdCol" prefWidth="56.0" text="序号" />
-                              <TableColumn fx:id="fangHeightCol" prefWidth="83.0" text="高" />
-                              <TableColumn fx:id="fangWidthCol" text="宽" />
-                              <TableColumn fx:id="fangPiaoCol" prefWidth="79.0" text="飘" />
-                              <TableColumn fx:id="fangAreaCol" prefWidth="78.0" text="平方" />
-                              <TableColumn fx:id="fangPriceCol" prefWidth="88.0" text="单价" />
-                              <TableColumn fx:id="fangAmountCol" prefWidth="100.0" text="金额" />
+                              <TableColumn fx:id="snIdCol" prefWidth="56.0" text="序号" />
+                              <TableColumn fx:id="snHeightCol" prefWidth="83.0" text="高" />
+                              <TableColumn fx:id="snWidthCol" text="宽" />
+                              <TableColumn fx:id="snPiaoCol" prefWidth="79.0" text="飘" />
+                              <TableColumn fx:id="snAreaCol" prefWidth="78.0" text="平方" />
+                              <TableColumn fx:id="snPriceCol" prefWidth="88.0" text="单价" />
+                              <TableColumn fx:id="snAmountCol" prefWidth="100.0" text="金额" />
                            </columns>
                         </TableView>
                      </children>
@@ -122,15 +124,15 @@
             <TableColumn prefWidth="226.0" text="金额" />
         </columns>
       </TableView>
-      <Button layoutX="42.0" layoutY="76.0" mnemonicParsing="false" onAction="#addDetailInfo" prefHeight="29.0" prefWidth="71.0" text="添加">
+      <Button layoutX="611.0" layoutY="111.0" mnemonicParsing="false" onAction="#addDetailInfo" prefHeight="29.0" prefWidth="71.0" text="添加">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="628.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#returnMainScene">
-         <image>
-            <Image url="/image/return.png" />
-         </image>
-      </ImageView>
+      <Button defaultButton="true" layoutX="38.0" layoutY="25.0" mnemonicParsing="false" onAction="#returnMainScene" prefHeight="39.0" prefWidth="78.0" text="返回">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -2,8 +2,10 @@ package com.luis.controller;
 
 import com.luis.entity.AluminumAlloy;
 import com.luis.entity.Member;
-import com.luis.enums.TabNameEnum;
+import com.luis.entity.SecurityNet;
 import com.luis.service.AlAlloyService;
+import com.luis.service.CommonService;
+import com.luis.service.SecurityNetService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -40,8 +42,19 @@ public class DetailController extends BaseController implements Initializable {
     @FXML
     private TableColumn<AluminumAlloy, Double> lvHeightCol, lvWidthCol, lvAreaCol, lvPriceCol, lvAmountCol;
     private ObservableList<AluminumAlloy> alAlloyTableData = FXCollections.observableArrayList();
-    private AlAlloyService alAlloyService = new AlAlloyService();
-    // 防盗网
+    private CommonService<AluminumAlloy> alAlloyService = new AlAlloyService();
+
+    /**
+     * 防盗网
+     */
+    @FXML
+    private TableView<SecurityNet> securityNetTable;
+    @FXML
+    private TableColumn<SecurityNet, Integer> snIdCol;
+    @FXML
+    private TableColumn<SecurityNet, Double> snHeightCol, snWidthCol, snAreaCol, snPriceCol, snAmountCol, snPiaoCol;
+    private ObservableList<SecurityNet> securityNetTableData = FXCollections.observableArrayList();
+    private SecurityNetService securityNetService = new SecurityNetService();
     // 其他
     // 支付金额
 
@@ -49,14 +62,19 @@ public class DetailController extends BaseController implements Initializable {
         this.member = member;
         nameLabel.setText(member.getName());
         phoneLabel.setText(member.getPhone());
-        // 初始化数据
-        alAlloyTableData.addAll(alAlloyService.queryAluminum(member.getUserId()));
+        // 初始化铝合金数据
+        alAlloyTableData.addAll(alAlloyService.query(member.getUserId()));
         alAlloyTable.setItems(alAlloyTableData);
+        // 初始化防盗网数据
+        securityNetTableData.addAll(securityNetService.query(member.getUserId()));
+        securityNetTable.setItems(securityNetTableData);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // 铝合金
+        /**
+         * 铝合金
+         */
         lvIdCol.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
         lvHeightCol.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asObject());
         // 设置为可编辑
@@ -66,7 +84,7 @@ public class DetailController extends BaseController implements Initializable {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setHeight(t.getNewValue());
             aluminumAlloy.refresh();
-            alAlloyService.updateAluminum(aluminumAlloy);
+            alAlloyService.update(aluminumAlloy);
         });
         lvWidthCol.setCellValueFactory(cellData -> cellData.getValue().widthProperty().asObject());
         lvWidthCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
@@ -74,7 +92,7 @@ public class DetailController extends BaseController implements Initializable {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setWidth(t.getNewValue());
             aluminumAlloy.refresh();
-            alAlloyService.updateAluminum(aluminumAlloy);
+            alAlloyService.update(aluminumAlloy);
         });
         lvAreaCol.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
         lvPriceCol.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
@@ -83,9 +101,50 @@ public class DetailController extends BaseController implements Initializable {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setPrice(t.getNewValue());
             aluminumAlloy.refresh();
-            alAlloyService.updateAluminum(aluminumAlloy);
+            alAlloyService.update(aluminumAlloy);
         });
         lvAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
+
+        /**
+         * 防盗网
+         */
+        snIdCol.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        snHeightCol.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asObject());
+        // 设置为可编辑
+        snHeightCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        // 编辑提交时触发的动作
+        snHeightCol.setOnEditCommit((TableColumn.CellEditEvent<SecurityNet, Double> t) -> {
+            SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            securityNet.setHeight(t.getNewValue());
+            securityNet.refresh();
+            securityNetService.update(securityNet);
+        });
+        snWidthCol.setCellValueFactory(cellData -> cellData.getValue().widthProperty().asObject());
+        snWidthCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        snWidthCol.setOnEditCommit((TableColumn.CellEditEvent<SecurityNet, Double> t) -> {
+            SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            securityNet.setWidth(t.getNewValue());
+            securityNet.refresh();
+            securityNetService.update(securityNet);
+        });
+        snPiaoCol.setCellValueFactory(cellData -> cellData.getValue().piaoProperty().asObject());
+        snPiaoCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        snPiaoCol.setOnEditCommit((TableColumn.CellEditEvent<SecurityNet, Double> t) -> {
+            SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            securityNet.setPiao(t.getNewValue());
+            securityNet.refresh();
+            securityNetService.update(securityNet);
+        });
+        snAreaCol.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
+        snPriceCol.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+        snPriceCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        snPriceCol.setOnEditCommit((TableColumn.CellEditEvent<SecurityNet, Double> t) -> {
+            SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            securityNet.setPrice(t.getNewValue());
+            securityNet.refresh();
+            securityNetService.update(securityNet);
+        });
+        snAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
     }
 
     /**
@@ -95,19 +154,22 @@ public class DetailController extends BaseController implements Initializable {
         String name = detailTabPane.getSelectionModel().getSelectedItem().getText();
         switch (name) {
             case "铝合金":
-                AluminumAlloy  aluminumAlloy = new AluminumAlloy();
+                AluminumAlloy aluminumAlloy = new AluminumAlloy();
                 aluminumAlloy.setUserId(member.getUserId());
-                alAlloyService.addAluminum(aluminumAlloy);
-                alAlloyTableData.setAll(alAlloyService.queryAluminum(member.getUserId()));
+                alAlloyService.add(aluminumAlloy);
+                alAlloyTableData.add(aluminumAlloy);
                 break;
             case "防盗网":
-                alAlloyService.addAluminum(new AluminumAlloy());
+                SecurityNet securityNet = new SecurityNet();
+                securityNet.setUserId(member.getUserId());
+                securityNetService.add(securityNet);
+                securityNetTableData.add(securityNet);
                 break;
             case "其他":
-                alAlloyService.addAluminum(new AluminumAlloy());
+                alAlloyService.add(new AluminumAlloy());
                 break;
             case "付款账单":
-                alAlloyService.addAluminum(new AluminumAlloy());
+                alAlloyService.add(new AluminumAlloy());
                 break;
             default:
                 break;

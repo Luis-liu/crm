@@ -13,6 +13,8 @@ import java.math.RoundingMode;
  **/
 public class DoubleUtil {
 
+    public static final Double NUMBER2 = 2d;
+
     /**
      * @title 解决double加法精度问题
      */
@@ -32,6 +34,8 @@ public class DoubleUtil {
         for(Double a : doubles){
             result = result.multiply(new BigDecimal(String.valueOf(a)));
         }
+        // 保留两位小数
+//        result = result.setScale(2,BigDecimal.ROUND_HALF_UP);
         return result.doubleValue();
     }
     /**

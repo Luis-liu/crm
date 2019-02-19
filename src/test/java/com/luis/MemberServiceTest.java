@@ -1,7 +1,5 @@
 package com.luis;
 
-import com.luis.constant.SqlConstant;
-import com.luis.db.CommonDao;
 import com.luis.entity.Member;
 import com.luis.service.MemberService;
 import org.junit.Test;
@@ -25,13 +23,13 @@ public class MemberServiceTest {
         Member member = new Member("wanxioo", "18855444221");
         for (int i = 1; i < 3; i++) {
             member.setName("张三" + i);
-            memberService.addMember(member);
+            memberService.add(member);
         }
     }
 
     @Test
     public void queryMemberTest() {
-        List<Member> list = memberService.queryMember("");
+        List<Member> list = memberService.query("");
         if (list != null) {
             for (Member member : list) {
                 System.out.println(member);
@@ -45,7 +43,7 @@ public class MemberServiceTest {
         member.setUserId(1);
         member.setName("李四");
         member.setPhone("1558442547");
-        memberService.updateMember(member);
+        memberService.update(member);
         queryMemberTest();
     }
 }

@@ -10,12 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.luis.util.Message;
-import javafx.util.converter.IntegerStringConverter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.URL;
@@ -56,7 +54,7 @@ public class MainController extends BaseController implements Initializable {
         phoneCol.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
 
         // 初始化数据，查询所有客户
-        tableData.addAll(memberService.queryMember(null));
+        tableData.addAll(memberService.query(null));
 
         myTable.setItems(tableData);
 
@@ -90,9 +88,9 @@ public class MainController extends BaseController implements Initializable {
     public void searchMember(ActionEvent event) {
         String searchValue = searchTextField.getText();
         if (StringUtils.isNotEmpty(searchValue)) {
-            tableData.setAll(memberService.queryMember(searchValue));
+            tableData.setAll(memberService.query(searchValue));
         } else {
-            tableData.setAll(memberService.queryMember(null));
+            tableData.setAll(memberService.query(null));
         }
     }
 
@@ -143,11 +141,11 @@ public class MainController extends BaseController implements Initializable {
     public void addMember(Member member) {
         member.setUserId(tableData.size() + 1);
         tableData.addAll(member);
-        memberService.addMember(member);
+        memberService.add(member);
     }
 
     public void updateMember(Member member) {
-        memberService.updateMember(member);
+        memberService.update(member);
     }
 
     /**

@@ -3,28 +3,24 @@ package com.luis.service;
 import com.luis.constant.SqlConstant;
 import com.luis.db.CommonDao;
 import com.luis.entity.AluminumAlloy;
-import com.luis.entity.Member;
 import com.luis.util.BeanUtil;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.luis.service.MemberService.QUERY_SQL;
-
 /**
  * Author:   liuyuansheng
  * Date:     2019/2/17 21:40
  */
-public class AlAlloyService {
+public class AlAlloyService implements CommonService<AluminumAlloy> {
 
     /**
      * 查询
      * @param userId
      * @return
      */
-    public List<AluminumAlloy> queryAluminum(Integer userId) {
+    public List<AluminumAlloy> query(Object userId) {
         try {
             List<AluminumAlloy> resultList = new ArrayList<>();
             String sql = String.format(SqlConstant.SQL_QUERY_ALALLOY, userId);
@@ -47,7 +43,7 @@ public class AlAlloyService {
      * 新增铝合金
      * @param aluminumAlloy
      */
-    public void addAluminum(AluminumAlloy aluminumAlloy) {
+    public void add(AluminumAlloy aluminumAlloy) {
         try {
             String sql = String.format(SqlConstant.SQL_ADD_ALALLOY, aluminumAlloy.getUserId(),
                     aluminumAlloy.getHeight(), aluminumAlloy.getWidth(), aluminumAlloy.getPrice());
@@ -59,15 +55,15 @@ public class AlAlloyService {
     }
 
     /**
-     * 新增铝合金
+     * 更新铝合金
      * @param aluminumAlloy
      */
-    public void updateAluminum(AluminumAlloy aluminumAlloy) {
+    public void update(AluminumAlloy aluminumAlloy) {
         try {
             String sql = String.format(SqlConstant.SQL_UPDATE_ALALLOY,
                     aluminumAlloy.getHeight(), aluminumAlloy.getWidth(), aluminumAlloy.getPrice(), aluminumAlloy.getId());
             CommonDao.addInfo(sql);
-            System.out.println("updateAluminum success");
+            System.out.println("update aluminumAlloy success");
         } catch (Exception e) {
             e.printStackTrace();
         }
