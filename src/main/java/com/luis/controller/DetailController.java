@@ -1,11 +1,11 @@
 package com.luis.controller;
 
-import com.luis.entity.AluminumAlloy;
-import com.luis.entity.Member;
-import com.luis.entity.SecurityNet;
+import com.luis.entity.*;
 import com.luis.service.AlAlloyService;
 import com.luis.service.CommonService;
+import com.luis.service.OtherMaterialService;
 import com.luis.service.SecurityNetService;
+import com.luis.util.DoubleUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,8 +16,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -54,10 +56,37 @@ public class DetailController extends BaseController implements Initializable {
     @FXML
     private TableColumn<SecurityNet, Double> snHeightCol, snWidthCol, snAreaCol, snPriceCol, snAmountCol, snPiaoCol;
     private ObservableList<SecurityNet> securityNetTableData = FXCollections.observableArrayList();
-    private SecurityNetService securityNetService = new SecurityNetService();
-    // 其他
+    private CommonService<SecurityNet> securityNetService = new SecurityNetService();
+
+    /**
+     * 其他
+     */
+    @FXML
+    private TableView<OtherMaterial> otherTable;
+    @FXML
+    private TableColumn<OtherMaterial, Integer> otherIdCol, otherNumberCol;
+    @FXML
+    private TableColumn<OtherMaterial, String> otherNameCol;
+    @FXML
+    private TableColumn<OtherMaterial, Double> otherPriceCol, otherAmountCol;
+    private ObservableList<OtherMaterial> otherTableData = FXCollections.observableArrayList();
+    private CommonService<OtherMaterial> otherMaterialService = new OtherMaterialService();
     // 支付金额
 
+    /**
+     * 总数
+     */
+    @FXML
+    private TableView<TotalData> totalTable;
+    @FXML
+    private TableColumn<TotalData, String> totalNameCol;
+    @FXML
+    private TableColumn<TotalData, Double> totalAreaCol, totalAmountCol;
+    private ObservableList<TotalData> totalTableData = FXCollections.observableArrayList();
+    /**
+     * 设置会员对象，初始值
+     * @param member
+     */
     public void setMember(Member member) {
         this.member = member;
         nameLabel.setText(member.getName());
@@ -68,6 +97,41 @@ public class DetailController extends BaseController implements Initializable {
         // 初始化防盗网数据
         securityNetTableData.addAll(securityNetService.query(member.getUserId()));
         securityNetTable.setItems(securityNetTableData);
+        // 其他材料
+        otherTableData.addAll(otherMaterialService.query(member.getUserId()));
+        otherTable.setItems(otherTableData);
+        // 付款金额
+        // 总数
+        TotalData lvTotalData = new TotalData();
+        lvTotalData.setName("铝合金");
+        lvTotalData.setArea(getAllData(alAlloyTableData, 1));
+        lvTotalData.setAmount(getAllData(alAlloyTableData, 2));
+
+        TotalData snTotalData = new TotalData();
+        snTotalData.setName("防盗网");
+        snTotalData.setArea(getAllData(securityNetTableData, 1));
+        snTotalData.setAmount(getAllData(securityNetTableData, 2));
+    }
+
+    /**
+     * 获取每个列表的总数
+     * @param list
+     * @param type
+     * @return
+     */
+    private Double getAllData(List<? extends AluminumAlloy> list, int type) {
+        if (list != null && list.size() > 0) {
+            Double total = 0d;
+            for (AluminumAlloy alloy : list) {
+                if (type == 1) {
+                    total = DoubleUtil.add(total, alloy.getArea());
+                } else if (type == 2) {
+                    total = DoubleUtil.add(total, alloy.getAmount());
+                }
+            }
+            return total;
+        }
+        return 0d;
     }
 
     @Override
@@ -145,6 +209,45 @@ public class DetailController extends BaseController implements Initializable {
             securityNetService.update(securityNet);
         });
         snAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
+
+        /**
+         * 其他
+         */
+        otherIdCol.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        otherNameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        otherNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        otherNameCol.setOnEditCommit((TableColumn.CellEditEvent<OtherMaterial, String> t) -> {
+            OtherMaterial otherMaterial = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            otherMaterial.setName(t.getNewValue());
+            otherMaterial.refresh();
+            otherMaterialService.update(otherMaterial);
+        });
+        otherNumberCol.setCellValueFactory(cellData -> cellData.getValue().numberProperty().asObject());
+        otherNumberCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        otherNumberCol.setOnEditCommit((TableColumn.CellEditEvent<OtherMaterial, Integer> t) -> {
+            OtherMaterial otherMaterial = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            otherMaterial.setNumber(t.getNewValue());
+            otherMaterial.refresh();
+            otherMaterialService.update(otherMaterial);
+        });
+        otherPriceCol.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+        otherPriceCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        otherPriceCol.setOnEditCommit((TableColumn.CellEditEvent<OtherMaterial, Double> t) -> {
+            OtherMaterial otherMaterial = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            otherMaterial.setPrice(t.getNewValue());
+            otherMaterial.refresh();
+            otherMaterialService.update(otherMaterial);
+        });
+        otherAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
+        /**
+         * 付款金额
+         */
+        /**
+         * 总数
+         */
+        totalNameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        totalAreaCol.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
+        totalAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
     }
 
     /**

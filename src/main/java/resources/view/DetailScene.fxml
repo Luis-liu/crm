@@ -87,11 +87,11 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView editable="true" prefHeight="316.0" prefWidth="565.0">
+                        <TableView fx:id="otherTable" editable="true" prefHeight="316.0" prefWidth="565.0">
                           <columns>
                             <TableColumn fx:id="otherIdCol" prefWidth="75.0" text="序号" />
                             <TableColumn fx:id="otherNameCol" prefWidth="178.0" text="名称" />
-                              <TableColumn fx:id="otherCountCol" prefWidth="111.0" text="数量" />
+                              <TableColumn fx:id="otherNumberCol" prefWidth="111.0" text="数量" />
                               <TableColumn fx:id="otherPriceCol" prefWidth="89.0" text="单价" />
                               <TableColumn fx:id="otherAmountCol" prefWidth="111.0" text="金额" />
                           </columns>
@@ -117,11 +117,11 @@
             </Tab>
         </tabs>
       </TabPane>
-      <TableView layoutX="42.0" layoutY="478.0" prefHeight="200.0" prefWidth="565.0">
+      <TableView fx:id="totalTable" layoutX="42.0" layoutY="478.0" prefHeight="200.0" prefWidth="565.0">
         <columns>
-          <TableColumn prefWidth="154.0" text="名称" />
-          <TableColumn prefWidth="184.0" text="平方" />
-            <TableColumn prefWidth="226.0" text="金额" />
+          <TableColumn fx:id="totalNameCol" prefWidth="154.0" text="名称" />
+          <TableColumn fx:id="totalAreaCol" prefWidth="184.0" text="平方" />
+            <TableColumn fx:id="totalAmountCol" prefWidth="226.0" text="金额" />
         </columns>
       </TableView>
       <Button layoutX="611.0" layoutY="111.0" mnemonicParsing="false" onAction="#addDetailInfo" prefHeight="29.0" prefWidth="71.0" text="添加">
