@@ -15,18 +15,19 @@ public class SecurityNetServiceTest {
     private SecurityNetService service = new SecurityNetService();
 
     @Test
-    public void addSecurityNetTest() {
+    public void addTest() {
         SecurityNet securityNet = new SecurityNet();
         securityNet.setUserId(1);
-        securityNet.setPrice(10.05);
-        securityNet.setHeight(8.05);
-        securityNet.setWidth(8.05);
-        securityNet.setPiao(4.00);
-        service.add(securityNet);
+        securityNet.setPrice(1);
+        securityNet.setHeight(1);
+        securityNet.setWidth(1);
+        securityNet.setPiao(1);
+        int id = service.add(securityNet);
+        System.out.println(id + "");
     }
 
     @Test
-    public void querySecurityNetTest() {
+    public void queryTest() {
         List<SecurityNet> list = service.query(1);
         if (list != null) {
             for (SecurityNet securityNet : list) {
@@ -36,7 +37,7 @@ public class SecurityNetServiceTest {
     }
 
     @Test
-    public void updateSecurityNetTest() {
+    public void updateTest() {
         SecurityNet securityNet = new SecurityNet();
         securityNet.setId(1);
         securityNet.setPrice(20.05);
@@ -44,6 +45,6 @@ public class SecurityNetServiceTest {
         securityNet.setWidth(18.05);
         securityNet.setPiao(10.22);
         service.update(securityNet);
-        querySecurityNetTest();
+        queryTest();
     }
 }

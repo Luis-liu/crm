@@ -20,15 +20,17 @@ import java.util.Map;
 public class BillService implements CommonService<Bill> {
 
     @Override
-    public void add(Bill entity) {
+    public Integer add(Bill entity) {
+        int id = 0;
         try {
             String sql = String.format(SqlConstant.SQL_ADD_BILL, entity.getUserId(),
                     entity.getPayTime(), entity.getAmount());
-            CommonDao.addInfo(sql);
+            id = CommonDao.addInfo(sql);
             System.out.println("add Bill success");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return id;
     }
 
     @Override

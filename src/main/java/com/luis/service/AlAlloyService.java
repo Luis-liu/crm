@@ -20,6 +20,7 @@ public class AlAlloyService implements CommonService<AluminumAlloy> {
      * @param userId
      * @return
      */
+    @Override
     public List<AluminumAlloy> query(Object userId) {
         try {
             List<AluminumAlloy> resultList = new ArrayList<>();
@@ -43,21 +44,25 @@ public class AlAlloyService implements CommonService<AluminumAlloy> {
      * 新增铝合金
      * @param aluminumAlloy
      */
-    public void add(AluminumAlloy aluminumAlloy) {
+    @Override
+    public Integer add(AluminumAlloy aluminumAlloy) {
+        int id = 0;
         try {
             String sql = String.format(SqlConstant.SQL_ADD_ALALLOY, aluminumAlloy.getUserId(),
                     aluminumAlloy.getHeight(), aluminumAlloy.getWidth(), aluminumAlloy.getPrice());
-            CommonDao.addInfo(sql);
+            id = CommonDao.addInfo(sql);
             System.out.println("add aluminumAlloy success");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return id;
     }
 
     /**
      * 更新铝合金
      * @param aluminumAlloy
      */
+    @Override
     public void update(AluminumAlloy aluminumAlloy) {
         try {
             String sql = String.format(SqlConstant.SQL_UPDATE_ALALLOY,

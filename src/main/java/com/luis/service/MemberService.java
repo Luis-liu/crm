@@ -26,14 +26,16 @@ public class MemberService implements CommonService<Member> {
      * 新增客户
      * @param member
      */
-    public void add(Member member) {
+    public Integer add(Member member) {
+        int id = 0;
         try {
             String sql = String.format(SqlConstant.SQL_ADD_MEMBER, member.getName(), member.getPhone(), member.getCreateDate());
-            CommonDao.addInfo(sql);
+            id = CommonDao.addInfo(sql);
             System.out.println("add member success");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return id;
     }
 
     /**

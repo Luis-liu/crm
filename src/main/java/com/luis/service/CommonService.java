@@ -12,7 +12,7 @@ public interface CommonService<T> {
      * 新增
      * @param entity
      */
-    void add(T entity);
+    Integer add(T entity);
 
     /**
      * 查询

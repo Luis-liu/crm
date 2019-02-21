@@ -17,15 +17,17 @@ import java.util.Map;
 public class OtherMaterialService implements CommonService<OtherMaterial> {
 
     @Override
-    public void add(OtherMaterial entity) {
+    public Integer add(OtherMaterial entity) {
+        int id = 0;
         try {
             String sql = String.format(SqlConstant.SQL_ADD_OTHERMATERIAL, entity.getUserId(),
                     entity.getName(), entity.getNumber(), entity.getPrice());
-            CommonDao.addInfo(sql);
+            id = CommonDao.addInfo(sql);
             System.out.println("add OtherMaterial success");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return id;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class DoubleUtil {
             result = result.multiply(new BigDecimal(String.valueOf(a)));
         }
         // 保留两位小数
-//        result = result.setScale(2,BigDecimal.ROUND_HALF_UP);
+        result = result.setScale(2,BigDecimal.ROUND_HALF_UP);
         return result.doubleValue();
     }
     /**

@@ -1,8 +1,10 @@
 package com.luis.controller;
 
 import com.luis.entity.*;
+import com.luis.enums.TabNameEnum;
 import com.luis.service.*;
 import com.luis.util.DoubleUtil;
+import com.luis.util.EntityUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -116,39 +118,28 @@ public class DetailController extends BaseController implements Initializable {
         billTable.setItems(billTableData);
         // 总数
         TotalData lvTotalData = new TotalData();
-        lvTotalData.setName("铝合金");
-        lvTotalData.setArea(getAllData(alAlloyTableData, 1));
-        lvTotalData.setAmount(getAllData(alAlloyTableData, 2));
+        lvTotalData.setName(TabNameEnum.Al.getName());
+        lvTotalData.setArea(EntityUtil.getAllData(alAlloyTableData, 1));
+        lvTotalData.setAmount(EntityUtil.getAllData(alAlloyTableData, 2));
         totalTableData.add(lvTotalData);
 
         TotalData snTotalData = new TotalData();
-        snTotalData.setName("防盗网");
-        snTotalData.setArea(getAllData(securityNetTableData, 1));
-        snTotalData.setAmount(getAllData(securityNetTableData, 2));
+        snTotalData.setName(TabNameEnum.SN.getName());
+        snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, 1));
+        snTotalData.setAmount(EntityUtil.getAllData(securityNetTableData, 2));
         totalTableData.add(snTotalData);
 
-        totalTable.setItems(totalTableData);
-    }
+        TotalData otherTotalData = new TotalData();
+        otherTotalData.setName(TabNameEnum.OM.getName());
+        otherTotalData.setAmount(EntityUtil.getOtherTotalAmount(otherTableData));
+        totalTableData.add(otherTotalData);
 
-    /**
-     * 获取每个列表的总数
-     * @param list
-     * @param type
-     * @return
-     */
-    private Double getAllData(List<? extends AluminumAlloy> list, int type) {
-        if (list != null && list.size() > 0) {
-            Double total = 0d;
-            for (AluminumAlloy alloy : list) {
-                if (type == 1) {
-                    total = DoubleUtil.add(total, alloy.getArea());
-                } else if (type == 2) {
-                    total = DoubleUtil.add(total, alloy.getAmount());
-                }
-            }
-            return total;
-        }
-        return 0d;
+        TotalData billTotalData = new TotalData();
+        billTotalData.setName(TabNameEnum.BL.getName());
+        billTotalData.setAmount(EntityUtil.getBillTotalAmount(billTableData));
+        totalTableData.add(billTotalData);
+
+        totalTable.setItems(totalTableData);
     }
 
     @Override
@@ -287,24 +278,34 @@ public class DetailController extends BaseController implements Initializable {
      */
     public void addDetailInfo() {
         String name = detailTabPane.getSelectionModel().getSelectedItem().getText();
+        int id = 0;
         switch (name) {
             case "铝合金":
                 AluminumAlloy aluminumAlloy = new AluminumAlloy();
                 aluminumAlloy.setUserId(member.getUserId());
-                alAlloyService.add(aluminumAlloy);
+                id = alAlloyService.add(aluminumAlloy);
+                aluminumAlloy.setId(id);
                 alAlloyTableData.add(aluminumAlloy);
                 break;
             case "防盗网":
                 SecurityNet securityNet = new SecurityNet();
                 securityNet.setUserId(member.getUserId());
-                securityNetService.add(securityNet);
+                id = securityNetService.add(securityNet);
+                securityNet.setId(id);
                 securityNetTableData.add(securityNet);
                 break;
             case "其他":
-                alAlloyService.add(new AluminumAlloy());
+                OtherMaterial otherMaterial = new OtherMaterial();
+                otherMaterial.setUserId(member.getUserId());
+                id =  otherMaterialService.add(otherMaterial);
+                otherMaterial.setId(id);
+                otherTableData.add(otherMaterial);
                 break;
             case "付款账单":
-                alAlloyService.add(new AluminumAlloy());
+                Bill bill = new Bill();
+                id = billService.add(bill);
+                bill.setId(id);
+                billTableData.add(bill);
                 break;
             default:
                 break;

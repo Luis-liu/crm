@@ -21,6 +21,7 @@ public class SecurityNetService implements CommonService<SecurityNet> {
      * @param userId
      * @return
      */
+    @Override
     public List<SecurityNet> query(Object userId) {
         try {
             List<SecurityNet> resultList = new ArrayList<>();
@@ -44,21 +45,25 @@ public class SecurityNetService implements CommonService<SecurityNet> {
      * 新增铝合金
      * @param securityNet
      */
-    public void add(SecurityNet securityNet) {
+    @Override
+    public Integer add(SecurityNet securityNet) {
+        int id = 0;
         try {
             String sql = String.format(SqlConstant.SQL_ADD_SECURITYNET, securityNet.getUserId(),
                     securityNet.getHeight(), securityNet.getWidth(), securityNet.getPrice(), securityNet.getPiao());
-            CommonDao.addInfo(sql);
+            id = CommonDao.addInfo(sql);
             System.out.println("add securityNet success");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return id;
     }
 
     /**
      * 更新铝合金
      * @param securityNet
      */
+    @Override
     public void update(SecurityNet securityNet) {
         try {
             String sql = String.format(SqlConstant.SQL_UPDATE_SECURITYNET,

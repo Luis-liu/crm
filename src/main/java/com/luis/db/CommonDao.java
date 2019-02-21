@@ -67,16 +67,22 @@ public class CommonDao {
      * @param sql
      * @throws SQLException
      */
-    public static void addInfo(String sql) throws SQLException {
+    public static Integer addInfo(String sql) throws SQLException {
         Connection conn = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
+        int id = 0;
         try {
             conn = ConnectionPool.getInstance().getConnection();
-            stmt = conn.createStatement();
-            stmt.execute(sql);
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.executeUpdate();
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            while (generatedKeys.next()) {
+                id = generatedKeys.getInt(1);
+            }
         } finally {
             releaseConnection(conn, stmt, null);
         }
+        return id;
     }
 
     /**

@@ -120,8 +120,8 @@
       <TableView fx:id="totalTable" layoutX="42.0" layoutY="478.0" prefHeight="200.0" prefWidth="565.0">
         <columns>
           <TableColumn fx:id="totalNameCol" prefWidth="154.0" text="名称" />
-          <TableColumn fx:id="totalAreaCol" prefWidth="184.0" text="平方" />
-            <TableColumn fx:id="totalAmountCol" prefWidth="226.0" text="金额" />
+          <TableColumn fx:id="totalAreaCol" prefWidth="184.0" text="总平方" />
+            <TableColumn fx:id="totalAmountCol" prefWidth="226.0" text="总金额" />
         </columns>
       </TableView>
       <Button layoutX="611.0" layoutY="111.0" mnemonicParsing="false" onAction="#addDetailInfo" prefHeight="29.0" prefWidth="71.0" text="添加">
