@@ -1,10 +1,7 @@
 package com.luis.controller;
 
 import com.luis.entity.*;
-import com.luis.service.AlAlloyService;
-import com.luis.service.CommonService;
-import com.luis.service.OtherMaterialService;
-import com.luis.service.SecurityNetService;
+import com.luis.service.*;
 import com.luis.util.DoubleUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,8 +14,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LocalDateStringConverter;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -71,7 +70,19 @@ public class DetailController extends BaseController implements Initializable {
     private TableColumn<OtherMaterial, Double> otherPriceCol, otherAmountCol;
     private ObservableList<OtherMaterial> otherTableData = FXCollections.observableArrayList();
     private CommonService<OtherMaterial> otherMaterialService = new OtherMaterialService();
-    // 支付金额
+    /**
+     * 支付金额
+     */
+    @FXML
+    private TableView<Bill> billTable;
+    @FXML
+    private TableColumn<Bill, Integer> billIdCol;
+    @FXML
+    private TableColumn<Bill, LocalDate> billPayTimeCol;
+    @FXML
+    private TableColumn<Bill, Double> billAmountCol;
+    private ObservableList<Bill> billTableData = FXCollections.observableArrayList();
+    private CommonService<Bill> billService = new BillService();
 
     /**
      * 总数
@@ -101,16 +112,22 @@ public class DetailController extends BaseController implements Initializable {
         otherTableData.addAll(otherMaterialService.query(member.getUserId()));
         otherTable.setItems(otherTableData);
         // 付款金额
+        billTableData.addAll(billService.query(member.getUserId()));
+        billTable.setItems(billTableData);
         // 总数
         TotalData lvTotalData = new TotalData();
         lvTotalData.setName("铝合金");
         lvTotalData.setArea(getAllData(alAlloyTableData, 1));
         lvTotalData.setAmount(getAllData(alAlloyTableData, 2));
+        totalTableData.add(lvTotalData);
 
         TotalData snTotalData = new TotalData();
         snTotalData.setName("防盗网");
         snTotalData.setArea(getAllData(securityNetTableData, 1));
         snTotalData.setAmount(getAllData(securityNetTableData, 2));
+        totalTableData.add(snTotalData);
+
+        totalTable.setItems(totalTableData);
     }
 
     /**
@@ -242,6 +259,21 @@ public class DetailController extends BaseController implements Initializable {
         /**
          * 付款金额
          */
+        billIdCol.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        billAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
+        billAmountCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        billAmountCol.setOnEditCommit((TableColumn.CellEditEvent<Bill, Double> t) -> {
+            Bill bill = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            bill.setAmount(t.getNewValue());
+            billService.update(bill);
+        });
+        billPayTimeCol.setCellValueFactory(cellData -> cellData.getValue().payTimeProperty());
+        billPayTimeCol.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
+        billPayTimeCol.setOnEditCommit((TableColumn.CellEditEvent<Bill, LocalDate> t) -> {
+            Bill bill = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            bill.setPayTime(t.getNewValue());
+            billService.update(bill);
+        });
         /**
          * 总数
          */

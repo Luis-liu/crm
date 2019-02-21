@@ -69,4 +69,19 @@ public class SqlConstant {
      * 查询防盗网
      */
     public static final String SQL_QUERY_OTHERMATERIAL= "select * from other_material where user_id=%s";
+
+    /**
+     * 新增付款账单
+     */
+    public static final String SQL_ADD_BILL= "insert into bill(user_id, pay_time, amount) values(%s, '%s', '%s')";
+
+    /**
+     * 更新付款账单
+     */
+    public static final String SQL_UPDATE_BILL = "update bill set pay_time='%s', amount='%s' where id=%s";
+
+    /**
+     * 查询付款账单
+     */
+    public static final String SQL_QUERY_BILL= "select * from bill where user_id=%s";
 }

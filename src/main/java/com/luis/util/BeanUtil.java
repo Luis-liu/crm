@@ -3,6 +3,7 @@ package com.luis.util;
 import com.luis.annotation.SqlField;
 
 import java.lang.reflect.Method;
+import java.sql.Date;
 import java.util.Map;
 
 /**
@@ -35,7 +36,12 @@ public class BeanUtil {
                     if (map.containsKey(name)) {
                         Object value = map.get(name);
                         // 利用set方法赋值
-                        method.invoke(obj, value);
+                        if (value instanceof Date) {
+                            Date date = (Date) value;
+                            method.invoke(obj, date.toLocalDate());
+                        } else {
+                            method.invoke(obj, value);
+                        }
                     }
                 }
             }

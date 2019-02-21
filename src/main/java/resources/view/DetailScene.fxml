@@ -104,11 +104,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView editable="true" prefHeight="316.0" prefWidth="565.0">
+                        <TableView fx:id="billTable" editable="true" prefHeight="316.0" prefWidth="565.0">
                            <columns>
-                              <TableColumn prefWidth="84.0" text="序号" />
-                              <TableColumn prefWidth="248.0" text="日期" />
-                              <TableColumn prefWidth="232.0" text="付款金额" />
+                              <TableColumn fx:id="billIdCol" prefWidth="84.0" text="序号" />
+                              <TableColumn fx:id="billPayTimeCol" prefWidth="248.0" text="日期" />
+                              <TableColumn fx:id="billAmountCol" prefWidth="232.0" text="付款金额" />
                            </columns>
                         </TableView>
                      </children>

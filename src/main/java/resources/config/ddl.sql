@@ -30,3 +30,10 @@ CREATE TABLE `other_material` (
   `price` double NOT NULL COMMENT '单价',
   PRIMARY KEY (`id`)
 );
+CREATE TABLE `bill` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `pay_time` DATE NOT NULL COMMENT '付款时间',
+  `amount` double NOT NULL COMMENT '付款金额',
+  PRIMARY KEY (`id`)
+);
