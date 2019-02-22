@@ -2,8 +2,8 @@ package com.luis.controller;
 
 import com.luis.entity.*;
 import com.luis.enums.TabNameEnum;
+import com.luis.enums.TotalType;
 import com.luis.service.*;
-import com.luis.util.DoubleUtil;
 import com.luis.util.EntityUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +20,6 @@ import javafx.util.converter.LocalDateStringConverter;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -96,6 +95,12 @@ public class DetailController extends BaseController implements Initializable {
     @FXML
     private TableColumn<TotalData, Double> totalAreaCol, totalAmountCol;
     private ObservableList<TotalData> totalTableData = FXCollections.observableArrayList();
+    private TotalData lvTotalData = new TotalData();
+    private TotalData snTotalData = new TotalData();
+    private TotalData otherTotalData = new TotalData();
+    private TotalData billTotalData = new TotalData();
+
+
     /**
      * 设置会员对象，初始值
      * @param member
@@ -117,24 +122,20 @@ public class DetailController extends BaseController implements Initializable {
         billTableData.addAll(billService.query(member.getUserId()));
         billTable.setItems(billTableData);
         // 总数
-        TotalData lvTotalData = new TotalData();
         lvTotalData.setName(TabNameEnum.Al.getName());
-        lvTotalData.setArea(EntityUtil.getAllData(alAlloyTableData, 1));
-        lvTotalData.setAmount(EntityUtil.getAllData(alAlloyTableData, 2));
+        lvTotalData.setArea(EntityUtil.getAllData(alAlloyTableData, TotalType.AREA.getType()));
+        lvTotalData.setAmount(EntityUtil.getAllData(alAlloyTableData, TotalType.AMOUNT.getType()));
         totalTableData.add(lvTotalData);
 
-        TotalData snTotalData = new TotalData();
         snTotalData.setName(TabNameEnum.SN.getName());
-        snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, 1));
-        snTotalData.setAmount(EntityUtil.getAllData(securityNetTableData, 2));
+        snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, TotalType.AREA.getType()));
+        snTotalData.setAmount(EntityUtil.getAllData(securityNetTableData, TotalType.AMOUNT.getType()));
         totalTableData.add(snTotalData);
 
-        TotalData otherTotalData = new TotalData();
         otherTotalData.setName(TabNameEnum.OM.getName());
         otherTotalData.setAmount(EntityUtil.getOtherTotalAmount(otherTableData));
         totalTableData.add(otherTotalData);
 
-        TotalData billTotalData = new TotalData();
         billTotalData.setName(TabNameEnum.BL.getName());
         billTotalData.setAmount(EntityUtil.getBillTotalAmount(billTableData));
         totalTableData.add(billTotalData);
@@ -156,6 +157,7 @@ public class DetailController extends BaseController implements Initializable {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setHeight(t.getNewValue());
             aluminumAlloy.refresh();
+            lvTotalData.setArea(EntityUtil.getAllData(alAlloyTableData, TotalType.AREA.getType()));
             alAlloyService.update(aluminumAlloy);
         });
         lvWidthCol.setCellValueFactory(cellData -> cellData.getValue().widthProperty().asObject());
@@ -164,6 +166,8 @@ public class DetailController extends BaseController implements Initializable {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setWidth(t.getNewValue());
             aluminumAlloy.refresh();
+            // 刷新总平方
+            lvTotalData.setArea(EntityUtil.getAllData(alAlloyTableData, TotalType.AREA.getType()));
             alAlloyService.update(aluminumAlloy);
         });
         lvAreaCol.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
@@ -173,6 +177,8 @@ public class DetailController extends BaseController implements Initializable {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setPrice(t.getNewValue());
             aluminumAlloy.refresh();
+            // 刷新总金额
+            lvTotalData.setAmount(EntityUtil.getAllData(alAlloyTableData, TotalType.AMOUNT.getType()));
             alAlloyService.update(aluminumAlloy);
         });
         lvAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
@@ -189,6 +195,7 @@ public class DetailController extends BaseController implements Initializable {
             SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
             securityNet.setHeight(t.getNewValue());
             securityNet.refresh();
+            snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, TotalType.AREA.getType()));
             securityNetService.update(securityNet);
         });
         snWidthCol.setCellValueFactory(cellData -> cellData.getValue().widthProperty().asObject());
@@ -197,6 +204,7 @@ public class DetailController extends BaseController implements Initializable {
             SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
             securityNet.setWidth(t.getNewValue());
             securityNet.refresh();
+            snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, TotalType.AREA.getType()));
             securityNetService.update(securityNet);
         });
         snPiaoCol.setCellValueFactory(cellData -> cellData.getValue().piaoProperty().asObject());
@@ -205,6 +213,7 @@ public class DetailController extends BaseController implements Initializable {
             SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
             securityNet.setPiao(t.getNewValue());
             securityNet.refresh();
+            snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, TotalType.AREA.getType()));
             securityNetService.update(securityNet);
         });
         snAreaCol.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
@@ -214,6 +223,7 @@ public class DetailController extends BaseController implements Initializable {
             SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
             securityNet.setPrice(t.getNewValue());
             securityNet.refresh();
+            snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, TotalType.AMOUNT.getType()));
             securityNetService.update(securityNet);
         });
         snAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
@@ -244,6 +254,7 @@ public class DetailController extends BaseController implements Initializable {
             OtherMaterial otherMaterial = t.getTableView().getItems().get(t.getTablePosition().getRow());
             otherMaterial.setPrice(t.getNewValue());
             otherMaterial.refresh();
+            otherTotalData.setAmount(EntityUtil.getOtherTotalAmount(otherTableData));
             otherMaterialService.update(otherMaterial);
         });
         otherAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
@@ -256,6 +267,7 @@ public class DetailController extends BaseController implements Initializable {
         billAmountCol.setOnEditCommit((TableColumn.CellEditEvent<Bill, Double> t) -> {
             Bill bill = t.getTableView().getItems().get(t.getTablePosition().getRow());
             bill.setAmount(t.getNewValue());
+            billTotalData.setAmount(EntityUtil.getBillTotalAmount(billTableData));
             billService.update(bill);
         });
         billPayTimeCol.setCellValueFactory(cellData -> cellData.getValue().payTimeProperty());
@@ -278,7 +290,7 @@ public class DetailController extends BaseController implements Initializable {
      */
     public void addDetailInfo() {
         String name = detailTabPane.getSelectionModel().getSelectedItem().getText();
-        int id = 0;
+        int id;
         switch (name) {
             case "铝合金":
                 AluminumAlloy aluminumAlloy = new AluminumAlloy();
