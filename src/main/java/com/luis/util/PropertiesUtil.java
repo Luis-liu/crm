@@ -15,7 +15,7 @@ public class PropertiesUtil {
     private static ResourceBundle resourceBundle;
 
     static {
-        resourceBundle = ResourceBundle.getBundle("/config.properties");
+        resourceBundle = ResourceBundle.getBundle("config/config");
     }
 
     private PropertiesUtil() {}
@@ -27,6 +27,10 @@ public class PropertiesUtil {
      */
     public static String getProperties(String key) {
         return resourceBundle.getString(key);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(PropertiesUtil.getProperties("password"));
     }
 
 }

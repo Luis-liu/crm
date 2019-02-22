@@ -158,6 +158,7 @@ public class DetailController extends BaseController implements Initializable {
             aluminumAlloy.setHeight(t.getNewValue());
             aluminumAlloy.refresh();
             lvTotalData.setArea(EntityUtil.getAllData(alAlloyTableData, TotalType.AREA.getType()));
+            lvTotalData.setAmount(EntityUtil.getAllData(alAlloyTableData, TotalType.AMOUNT.getType()));
             alAlloyService.update(aluminumAlloy);
         });
         lvWidthCol.setCellValueFactory(cellData -> cellData.getValue().widthProperty().asObject());
@@ -168,6 +169,7 @@ public class DetailController extends BaseController implements Initializable {
             aluminumAlloy.refresh();
             // 刷新总平方
             lvTotalData.setArea(EntityUtil.getAllData(alAlloyTableData, TotalType.AREA.getType()));
+            lvTotalData.setAmount(EntityUtil.getAllData(alAlloyTableData, TotalType.AMOUNT.getType()));
             alAlloyService.update(aluminumAlloy);
         });
         lvAreaCol.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
@@ -196,6 +198,7 @@ public class DetailController extends BaseController implements Initializable {
             securityNet.setHeight(t.getNewValue());
             securityNet.refresh();
             snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, TotalType.AREA.getType()));
+            snTotalData.setAmount(EntityUtil.getAllData(securityNetTableData, TotalType.AMOUNT.getType()));
             securityNetService.update(securityNet);
         });
         snWidthCol.setCellValueFactory(cellData -> cellData.getValue().widthProperty().asObject());
@@ -205,6 +208,7 @@ public class DetailController extends BaseController implements Initializable {
             securityNet.setWidth(t.getNewValue());
             securityNet.refresh();
             snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, TotalType.AREA.getType()));
+            snTotalData.setAmount(EntityUtil.getAllData(securityNetTableData, TotalType.AMOUNT.getType()));
             securityNetService.update(securityNet);
         });
         snPiaoCol.setCellValueFactory(cellData -> cellData.getValue().piaoProperty().asObject());
@@ -214,6 +218,7 @@ public class DetailController extends BaseController implements Initializable {
             securityNet.setPiao(t.getNewValue());
             securityNet.refresh();
             snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, TotalType.AREA.getType()));
+            snTotalData.setAmount(EntityUtil.getAllData(securityNetTableData, TotalType.AMOUNT.getType()));
             securityNetService.update(securityNet);
         });
         snAreaCol.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
@@ -223,7 +228,7 @@ public class DetailController extends BaseController implements Initializable {
             SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
             securityNet.setPrice(t.getNewValue());
             securityNet.refresh();
-            snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, TotalType.AMOUNT.getType()));
+            snTotalData.setAmount(EntityUtil.getAllData(securityNetTableData, TotalType.AMOUNT.getType()));
             securityNetService.update(securityNet);
         });
         snAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());

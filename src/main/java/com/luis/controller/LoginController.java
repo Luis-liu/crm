@@ -1,5 +1,6 @@
 package com.luis.controller;
 
+import com.luis.util.PropertiesUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,7 +33,8 @@ public class LoginController extends BaseController implements Initializable {
 
     public void login(ActionEvent event) {
         String password = passwordField.getText();
-        if ("1".equals(password)) {
+        String pd = PropertiesUtil.getProperties("password");
+        if (pd.equals(password)) {
             mainApp.showMainDialog();
         } else {
             errorLabel.setVisible(true);
