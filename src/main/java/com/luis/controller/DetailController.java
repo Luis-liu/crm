@@ -320,6 +320,7 @@ public class DetailController extends BaseController implements Initializable {
                 break;
             case "付款账单":
                 Bill bill = new Bill();
+                bill.setPayTime(LocalDate.now());
                 id = billService.add(bill);
                 bill.setId(id);
                 billTableData.add(bill);
