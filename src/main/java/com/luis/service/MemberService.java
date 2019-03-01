@@ -26,6 +26,7 @@ public class MemberService implements CommonService<Member> {
      * 新增客户
      * @param member
      */
+    @Override
     public Integer add(Member member) {
         int id = 0;
         try {
@@ -43,6 +44,7 @@ public class MemberService implements CommonService<Member> {
      * @param param
      * @return
      */
+    @Override
     public List<Member> query(Object param) {
         try {
             String searchValue = param == null ? null : param.toString();
@@ -68,6 +70,7 @@ public class MemberService implements CommonService<Member> {
      * 更新客户信息
      * @param member
      */
+    @Override
     public void update(Member member) {
         try {
             String sql = String.format(SqlConstant.SQL_UPDATE_MEMBER, member.getName(), member.getPhone(), member.getUserId());

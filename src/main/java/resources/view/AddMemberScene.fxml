@@ -21,6 +21,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="saveMemberBtn" layoutX="126.0" layoutY="149.0" mnemonicParsing="false" text="确定" onAction="#saveMemberInfo"/>
+      <Button fx:id="saveMemberBtn" layoutX="126.0" layoutY="149.0" mnemonicParsing="false" text="确定" onAction="#saveMemberInfo" defaultButton="true"/>
    </children>
 </AnchorPane>
