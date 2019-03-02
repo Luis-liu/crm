@@ -86,7 +86,7 @@ public class MainController extends BaseController implements Initializable {
         searchTextField.setOnKeyPressed(ke -> {
             if (ke.getCode().equals(KeyCode.ENTER))
             {
-                searchMember(null);
+                searchMember();
             }
         });
     }
@@ -94,15 +94,22 @@ public class MainController extends BaseController implements Initializable {
 
     /**
      * 搜索用户
-     * @param event
      */
-    public void searchMember(ActionEvent event) {
+    public void searchMember() {
         String searchValue = searchTextField.getText();
         if (StringUtils.isNotEmpty(searchValue)) {
             tableData.setAll(memberService.query(searchValue));
         } else {
             tableData.setAll(memberService.query(null));
         }
+    }
+
+    /**
+     * 搜索重置
+     */
+    public void resetSearch() {
+        searchTextField.setText(null);
+        searchMember();
     }
 
     /**

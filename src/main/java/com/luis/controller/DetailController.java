@@ -9,10 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -148,7 +145,22 @@ public class DetailController extends BaseController implements Initializable {
         /**
          * 铝合金
          */
-        lvIdCol.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        lvIdCol.setCellFactory(col -> {
+            TableCell<AluminumAlloy, Integer> cell = new TableCell<AluminumAlloy, Integer>() {
+                @Override
+                public void updateItem(Integer item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    this.setGraphic(null);
+
+                    if (!empty) {
+                        int rowIndex = this.getIndex() + 1;
+                        this.setText(String.valueOf(rowIndex));
+                    }
+                }
+            };
+            return cell;
+        });
         lvHeightCol.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asObject());
         // 设置为可编辑
         lvHeightCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
@@ -188,7 +200,22 @@ public class DetailController extends BaseController implements Initializable {
         /**
          * 防盗网
          */
-        snIdCol.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        snIdCol.setCellFactory(col -> {
+            TableCell<SecurityNet, Integer> cell = new TableCell<SecurityNet, Integer>() {
+                @Override
+                public void updateItem(Integer item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    this.setGraphic(null);
+
+                    if (!empty) {
+                        int rowIndex = this.getIndex() + 1;
+                        this.setText(String.valueOf(rowIndex));
+                    }
+                }
+            };
+            return cell;
+        });
         snHeightCol.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asObject());
         // 设置为可编辑
         snHeightCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
@@ -236,7 +263,22 @@ public class DetailController extends BaseController implements Initializable {
         /**
          * 其他
          */
-        otherIdCol.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        otherIdCol.setCellFactory(col -> {
+            TableCell<OtherMaterial, Integer> cell = new TableCell<OtherMaterial, Integer>() {
+                @Override
+                public void updateItem(Integer item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    this.setGraphic(null);
+
+                    if (!empty) {
+                        int rowIndex = this.getIndex() + 1;
+                        this.setText(String.valueOf(rowIndex));
+                    }
+                }
+            };
+            return cell;
+        });
         otherNameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         otherNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         otherNameCol.setOnEditCommit((TableColumn.CellEditEvent<OtherMaterial, String> t) -> {
@@ -266,7 +308,22 @@ public class DetailController extends BaseController implements Initializable {
         /**
          * 付款金额
          */
-        billIdCol.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        billIdCol.setCellFactory(col -> {
+            TableCell<Bill, Integer> cell = new TableCell<Bill, Integer>() {
+                @Override
+                public void updateItem(Integer item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    this.setGraphic(null);
+
+                    if (!empty) {
+                        int rowIndex = this.getIndex() + 1;
+                        this.setText(String.valueOf(rowIndex));
+                    }
+                }
+            };
+            return cell;
+        });
         billAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
         billAmountCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
         billAmountCol.setOnEditCommit((TableColumn.CellEditEvent<Bill, Double> t) -> {

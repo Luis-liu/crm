@@ -23,7 +23,8 @@
             <TableColumn fx:id="operateCol" prefWidth="93.0" text="操作" />
         </columns>
       </TableView>
-      <Button fx:id="createMemberBtn" layoutX="374.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleNewMember" prefHeight="27.0" prefWidth="66.0" text="新建" />
-      <Button fx:id="editMemberBtn" layoutX="465.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleEditMember" prefHeight="27.0" prefWidth="60.0" text="编辑" />
+      <Button fx:id="createMemberBtn" layoutX="661.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleNewMember" prefHeight="27.0" prefWidth="66.0" text="新建" />
+      <Button fx:id="editMemberBtn" layoutX="752.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleEditMember" prefHeight="27.0" prefWidth="60.0" text="编辑" />
+      <Button fx:id="resetButton" layoutX="371.0" layoutY="93.0" mnemonicParsing="false" onAction="#resetSearch" prefHeight="27.0" prefWidth="66.0" text="重置" />
    </children>
 </AnchorPane>
