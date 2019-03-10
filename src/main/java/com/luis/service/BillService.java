@@ -4,6 +4,8 @@ import com.luis.constant.SqlConstant;
 import com.luis.db.CommonDao;
 import com.luis.entity.Bill;
 import com.luis.util.BeanUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.Map;
  **/
 public class BillService implements CommonService<Bill> {
 
+    private static final Logger logger = LoggerFactory.getLogger(AlAlloyService.class);
+
     @Override
     public Integer add(Bill entity) {
         int id = 0;
@@ -26,9 +30,9 @@ public class BillService implements CommonService<Bill> {
             String sql = String.format(SqlConstant.SQL_ADD_BILL, entity.getUserId(),
                     entity.getPayTime(), entity.getAmount());
             id = CommonDao.addInfo(sql);
-            System.out.println("add Bill success");
+            logger.info("add Bill success");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
         return id;
     }
@@ -47,7 +51,7 @@ public class BillService implements CommonService<Bill> {
             }
             return resultList;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
         return null;
     }
@@ -58,9 +62,9 @@ public class BillService implements CommonService<Bill> {
             String sql = String.format(SqlConstant.SQL_UPDATE_BILL,
                     entity.getPayTime(), entity.getAmount(), entity.getId());
             CommonDao.addInfo(sql);
-            System.out.println("update Bill success");
+            logger.info("update Bill success");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
     }
 }

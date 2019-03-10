@@ -4,6 +4,8 @@ import com.luis.constant.SqlConstant;
 import com.luis.db.CommonDao;
 import com.luis.entity.SecurityNet;
 import com.luis.util.BeanUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.Map;
  * Date:     2019/2/19 21:42
  */
 public class SecurityNetService implements CommonService<SecurityNet> {
+
+    public static final Logger logger = LoggerFactory.getLogger(SecurityNetService.class);
 
     /**
      * 查询
@@ -36,7 +40,7 @@ public class SecurityNetService implements CommonService<SecurityNet> {
             }
             return resultList;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
         return null;
     }
@@ -52,9 +56,9 @@ public class SecurityNetService implements CommonService<SecurityNet> {
             String sql = String.format(SqlConstant.SQL_ADD_SECURITYNET, securityNet.getUserId(),
                     securityNet.getHeight(), securityNet.getWidth(), securityNet.getPrice(), securityNet.getPiao());
             id = CommonDao.addInfo(sql);
-            System.out.println("add securityNet success");
+            logger.info("add securityNet success");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
         return id;
     }
@@ -69,9 +73,9 @@ public class SecurityNetService implements CommonService<SecurityNet> {
             String sql = String.format(SqlConstant.SQL_UPDATE_SECURITYNET,
                     securityNet.getHeight(), securityNet.getWidth(), securityNet.getPrice(), securityNet.getPiao(), securityNet.getId());
             CommonDao.addInfo(sql);
-            System.out.println("update securityNet success");
+            logger.info("update securityNet success");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
     }
 }

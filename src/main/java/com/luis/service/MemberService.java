@@ -5,6 +5,8 @@ import com.luis.db.CommonDao;
 import com.luis.entity.Member;
 import com.luis.util.BeanUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.Map;
  **/
 public class MemberService implements CommonService<Member> {
 
+    private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
+
     public static final String QUERY_SQL = " where name like '%s' or phone like '%s'";
 
     /**
@@ -32,9 +36,9 @@ public class MemberService implements CommonService<Member> {
         try {
             String sql = String.format(SqlConstant.SQL_ADD_MEMBER, member.getName(), member.getPhone(), member.getCreateDate());
             id = CommonDao.addInfo(sql);
-            System.out.println("add member success");
+            logger.info("add member success");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
         return id;
     }
@@ -61,7 +65,7 @@ public class MemberService implements CommonService<Member> {
             }
             return resultList;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
         return null;
     }
@@ -75,9 +79,9 @@ public class MemberService implements CommonService<Member> {
         try {
             String sql = String.format(SqlConstant.SQL_UPDATE_MEMBER, member.getName(), member.getPhone(), member.getUserId());
             CommonDao.addInfo(sql);
-            System.out.println("update member success");
+            logger.info("update member success");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
     }
 

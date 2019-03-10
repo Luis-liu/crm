@@ -2,9 +2,10 @@ package com.luis.service;
 
 import com.luis.constant.SqlConstant;
 import com.luis.db.CommonDao;
-import com.luis.entity.AluminumAlloy;
 import com.luis.entity.OtherMaterial;
 import com.luis.util.BeanUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.Map;
  * Date:     2019/2/19 23:10
  */
 public class OtherMaterialService implements CommonService<OtherMaterial> {
+    
+    public static final Logger logger = LoggerFactory.getLogger(OtherMaterialService.class); 
 
     @Override
     public Integer add(OtherMaterial entity) {
@@ -23,9 +26,9 @@ public class OtherMaterialService implements CommonService<OtherMaterial> {
             String sql = String.format(SqlConstant.SQL_ADD_OTHERMATERIAL, entity.getUserId(),
                     entity.getName(), entity.getNumber(), entity.getPrice());
             id = CommonDao.addInfo(sql);
-            System.out.println("add OtherMaterial success");
+            logger.info("add OtherMaterial success");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
         return id;
     }
@@ -45,7 +48,7 @@ public class OtherMaterialService implements CommonService<OtherMaterial> {
             }
             return resultList;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
         return null;
     }
@@ -56,9 +59,9 @@ public class OtherMaterialService implements CommonService<OtherMaterial> {
             String sql = String.format(SqlConstant.SQL_UPDATE_OTHERMATERIAL,
                     entity.getName(), entity.getNumber(), entity.getPrice(), entity.getId());
             CommonDao.addInfo(sql);
-            System.out.println("update OtherMaterial success");
+            logger.info("update OtherMaterial success");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
     }
 }

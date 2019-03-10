@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +24,8 @@ import java.util.ResourceBundle;
  **/
 public class LoginController extends BaseController implements Initializable {
 
+    public static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
     @FXML
     private PasswordField passwordField;
     @FXML
@@ -35,8 +39,10 @@ public class LoginController extends BaseController implements Initializable {
         String password = passwordField.getText();
         String pd = PropertiesUtil.getProperties("password");
         if (pd.equals(password)) {
+            logger.info("登陆成功");
             mainApp.showMainDialog();
         } else {
+            logger.info("密码错误:{}", password);
             errorLabel.setVisible(true);
         }
     }

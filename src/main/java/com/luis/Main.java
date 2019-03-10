@@ -11,10 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class Main extends Application {
+
+    public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     private Stage primaryStage;
     private AnchorPane rootLayout;
@@ -53,7 +57,7 @@ public class Main extends Application {
             LoginController loginController = loader.getController();
             loginController.setMainApp(this);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
     }
 
@@ -73,7 +77,7 @@ public class Main extends Application {
             MainController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
     }
 
@@ -96,7 +100,7 @@ public class Main extends Application {
             controller.setMainApp(this);
             controller.setMember(member);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
     }
 

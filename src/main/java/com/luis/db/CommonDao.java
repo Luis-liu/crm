@@ -1,6 +1,8 @@
 package com.luis.db;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +22,8 @@ import java.util.Map;
  **/
 public class CommonDao {
 
+    private static final Logger logger = LoggerFactory.getLogger(CommonDao.class);
+
     /**
      * 创建表
      * @throws SQLException
@@ -37,13 +41,13 @@ public class CommonDao {
                 stmt = conn.createStatement();
                 String sql = getCreateSql();
                 stmt.execute(sql);
-                System.out.println("crateTable success");
+                logger.info("crateTable success");
             } else {
-                System.out.println("table already exist");
+                logger.info("table already exist");
             }
             rs.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("crateTable error", e);
         } finally {
             releaseConnection(conn, stmt, null);
         }
@@ -57,7 +61,7 @@ public class CommonDao {
                 return sql;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("getCreateSql error", e);
         }
         return null;
     }
@@ -130,7 +134,7 @@ public class CommonDao {
                 conn.close();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("getCreateSql error", e);
         }
     }
 

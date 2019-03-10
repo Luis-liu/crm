@@ -18,11 +18,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.luis.util.Message;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController extends BaseController implements Initializable {
+
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @FXML
     private TableView<Member> myTable;
@@ -139,7 +143,7 @@ public class MainController extends BaseController implements Initializable {
             dialogStage.show();
 
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
     }
 

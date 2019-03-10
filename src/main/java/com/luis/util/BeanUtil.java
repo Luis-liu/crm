@@ -1,6 +1,8 @@
 package com.luis.util;
 
 import com.luis.annotation.SqlField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.sql.Date;
@@ -15,6 +17,8 @@ import java.util.Map;
  * @create: 2019-02-15 15:24
  **/
 public class BeanUtil {
+
+    public static final Logger logger = LoggerFactory.getLogger(BeanUtil.class);
 
     /**
      * 类型转换
@@ -47,7 +51,7 @@ public class BeanUtil {
             }
             return obj;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("fromMapToBean error", e);
             return null;
         }
     }

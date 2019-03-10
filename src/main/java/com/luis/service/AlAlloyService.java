@@ -4,6 +4,8 @@ import com.luis.constant.SqlConstant;
 import com.luis.db.CommonDao;
 import com.luis.entity.AluminumAlloy;
 import com.luis.util.BeanUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.Map;
  */
 public class AlAlloyService implements CommonService<AluminumAlloy> {
 
+    private static final Logger logger = LoggerFactory.getLogger(BillService.class);
+    
     /**
      * 查询
      * @param userId
@@ -35,7 +39,7 @@ public class AlAlloyService implements CommonService<AluminumAlloy> {
             }
             return resultList;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
         return null;
     }
@@ -51,9 +55,9 @@ public class AlAlloyService implements CommonService<AluminumAlloy> {
             String sql = String.format(SqlConstant.SQL_ADD_ALALLOY, aluminumAlloy.getUserId(),
                     aluminumAlloy.getHeight(), aluminumAlloy.getWidth(), aluminumAlloy.getPrice());
             id = CommonDao.addInfo(sql);
-            System.out.println("add aluminumAlloy success");
+            logger.info("add aluminumAlloy success");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
         return id;
     }
@@ -68,9 +72,9 @@ public class AlAlloyService implements CommonService<AluminumAlloy> {
             String sql = String.format(SqlConstant.SQL_UPDATE_ALALLOY,
                     aluminumAlloy.getHeight(), aluminumAlloy.getWidth(), aluminumAlloy.getPrice(), aluminumAlloy.getId());
             CommonDao.addInfo(sql);
-            System.out.println("update aluminumAlloy success");
+            logger.info("update aluminumAlloy success");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("error", e);
         }
     }
 }
