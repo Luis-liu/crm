@@ -89,6 +89,7 @@ public class Main extends Application {
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
+            scene.getStylesheets().add("/css/detail.css");
             primaryStage.setScene(scene);
 
             DetailController controller = loader.getController();
