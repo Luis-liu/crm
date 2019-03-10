@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,12 +56,12 @@ public class CommonDao {
 
     private static String getCreateSql() {
         try {
-            File file = new File("src/main/java/resources/config/ddl.sql");
-            if (file.exists()) {
-                String sql = FileUtils.readFileToString(file);
-                return sql;
-            }
-        } catch (IOException e) {
+            InputStream inputStream = CommonDao.class.getResourceAsStream("/config/ddl.sql");
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes);
+            String str = new String(bytes);
+            return str;
+        } catch (Exception e) {
             logger.error("getCreateSql error", e);
         }
         return null;
