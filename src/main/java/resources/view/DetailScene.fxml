@@ -12,19 +12,19 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="751.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luis.controller.DetailController">
+<AnchorPane prefHeight="781.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luis.controller.DetailController">
    <children>
       <Label layoutX="42.0" layoutY="70.0" prefHeight="29.0" prefWidth="47.0" text="姓名：">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="nameLabel" layoutX="99.0" layoutY="70.0" prefHeight="29.0" prefWidth="90.0" text="王小二">
+      <Label fx:id="nameLabel" layoutX="99.0" layoutY="70.0" prefHeight="29.0" prefWidth="90.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="phoneLabel" layoutX="260.0" layoutY="70.0" prefHeight="29.0" prefWidth="104.0" text="193939848">
+      <Label fx:id="phoneLabel" layoutX="260.0" layoutY="70.0" prefHeight="29.0" prefWidth="104.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -39,76 +39,78 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="addressLabel" layoutX="430.0" layoutY="70.0" prefHeight="29.0" prefWidth="212.0" text="江西省赣州市崇义县">
+      <Label fx:id="addressLabel" layoutX="430.0" layoutY="70.0" prefHeight="29.0" prefWidth="212.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <TabPane fx:id="detailTabPane" layoutX="42.0" layoutY="111.0" prefHeight="346.0" prefWidth="565.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="detailTabPane" layoutX="42.0" layoutY="111.0" prefHeight="355.0" prefWidth="639.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="铝合金" id="tab1">
+          <Tab id="tab1" text="铝合金">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="alAlloyTable" editable="true" prefHeight="318.0" prefWidth="565.0">
+                        <TableView fx:id="alAlloyTable" editable="true" prefHeight="326.0" prefWidth="639.0">
                           <columns>
                             <TableColumn fx:id="lvIdCol" prefWidth="56.0" text="序号" />
-                            <TableColumn fx:id="lvHeightCol" prefWidth="89.0" text="高" />
-                              <TableColumn fx:id="lvWidthCol" prefWidth="95.0" text="宽" />
-                              <TableColumn fx:id="lvAreaCol" prefWidth="101.0" text="平方" />
-                              <TableColumn fx:id="lvPriceCol" prefWidth="113.0" text="单价" />
-                              <TableColumn fx:id="lvAmountCol" prefWidth="109.0" text="金额" />
+                            <TableColumn fx:id="lvHeightCol" prefWidth="78.0" text="高" />
+                              <TableColumn fx:id="lvWidthCol" prefWidth="83.0" text="宽" />
+                              <TableColumn fx:id="lvAreaCol" prefWidth="96.0" text="平方" />
+                              <TableColumn fx:id="lvPriceCol" prefWidth="96.0" text="单价" />
+                              <TableColumn fx:id="lvMaterialCol" prefWidth="126.0" text="材料" />
+                              <TableColumn fx:id="lvAmountCol" prefWidth="103.0" text="金额" />
                           </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="防盗网" id="tab2">
+          <Tab id="tab2" text="防盗网">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="securityNetTable" editable="true" prefHeight="318.0" prefWidth="565.0">
+                        <TableView fx:id="securityNetTable" editable="true" prefHeight="326.0" prefWidth="639.0">
                            <columns>
                               <TableColumn fx:id="snIdCol" prefWidth="56.0" text="序号" />
-                              <TableColumn fx:id="snHeightCol" prefWidth="83.0" text="高" />
-                              <TableColumn fx:id="snWidthCol" text="宽" />
-                              <TableColumn fx:id="snPiaoCol" prefWidth="79.0" text="飘" />
-                              <TableColumn fx:id="snAreaCol" prefWidth="78.0" text="平方" />
+                              <TableColumn fx:id="snHeightCol" prefWidth="74.0" text="高" />
+                              <TableColumn fx:id="snWidthCol" prefWidth="72.0" text="宽" />
+                              <TableColumn fx:id="snPiaoCol" prefWidth="78.0" text="飘" />
+                              <TableColumn fx:id="snAreaCol" text="平方" />
                               <TableColumn fx:id="snPriceCol" prefWidth="88.0" text="单价" />
-                              <TableColumn fx:id="snAmountCol" prefWidth="100.0" text="金额" />
+                              <TableColumn fx:id="snMaterialCol" prefWidth="103.0" text="材料" />
+                              <TableColumn fx:id="snAmountCol" prefWidth="88.0" text="金额" />
                            </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="其它" id="tab3">
+            <Tab id="tab3" text="其它">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="otherTable" editable="true" prefHeight="316.0" prefWidth="565.0">
+                        <TableView fx:id="otherTable" editable="true" prefHeight="325.0" prefWidth="639.0">
                           <columns>
-                            <TableColumn fx:id="otherIdCol" prefWidth="75.0" text="序号" />
-                            <TableColumn fx:id="otherNameCol" prefWidth="178.0" text="名称" />
-                              <TableColumn fx:id="otherNumberCol" prefWidth="111.0" text="数量" />
-                              <TableColumn fx:id="otherPriceCol" prefWidth="89.0" text="单价" />
-                              <TableColumn fx:id="otherAmountCol" prefWidth="111.0" text="金额" />
+                            <TableColumn fx:id="otherIdCol" prefWidth="83.0" text="序号" />
+                            <TableColumn fx:id="otherNameCol" prefWidth="170.0" text="名称" />
+                              <TableColumn fx:id="otherNumberCol" prefWidth="137.0" text="数量" />
+                              <TableColumn fx:id="otherPriceCol" prefWidth="116.0" text="单价" />
+                              <TableColumn fx:id="otherAmountCol" prefWidth="132.0" text="金额" />
                           </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="付款账单" id="tab4">
+            <Tab id="tab4" text="付款账单">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="billTable" editable="true" prefHeight="316.0" prefWidth="565.0">
+                        <TableView fx:id="billTable" editable="true" prefHeight="327.0" prefWidth="639.0">
                            <columns>
-                              <TableColumn fx:id="billIdCol" prefWidth="84.0" text="序号" />
-                              <TableColumn fx:id="billPayTimeCol" prefWidth="248.0" text="日期" />
-                              <TableColumn fx:id="billAmountCol" prefWidth="232.0" text="付款金额" />
+                              <TableColumn fx:id="billIdCol" prefWidth="99.0" text="序号" />
+                              <TableColumn fx:id="billPayTimeCol" prefWidth="261.0" text="日期" />
+                              <TableColumn fx:id="billAmountCol" prefWidth="278.0" text="付款金额" />
                            </columns>
                         </TableView>
                      </children>
@@ -117,14 +119,14 @@
             </Tab>
         </tabs>
       </TabPane>
-      <TableView fx:id="totalTable" layoutX="42.0" layoutY="478.0" prefHeight="200.0" prefWidth="565.0">
+      <TableView fx:id="totalTable" layoutX="42.0" layoutY="478.0" prefHeight="200.0" prefWidth="639.0">
         <columns>
-          <TableColumn fx:id="totalNameCol" prefWidth="154.0" text="名称" />
-          <TableColumn fx:id="totalAreaCol" prefWidth="184.0" text="总平方" />
-            <TableColumn fx:id="totalAmountCol" prefWidth="226.0" text="总金额" />
+          <TableColumn fx:id="totalNameCol" prefWidth="221.0" text="名称" />
+          <TableColumn fx:id="totalAreaCol" prefWidth="208.0" text="总平方" />
+            <TableColumn fx:id="totalAmountCol" prefWidth="209.0" text="总金额" />
         </columns>
       </TableView>
-      <Button layoutX="611.0" layoutY="111.0" mnemonicParsing="false" onAction="#addDetailInfo" prefHeight="29.0" prefWidth="71.0" text="添加">
+      <Button layoutX="689.0" layoutY="111.0" mnemonicParsing="false" onAction="#addDetailInfo" prefHeight="29.0" prefWidth="71.0" text="添加">
          <font>
             <Font size="15.0" />
          </font>

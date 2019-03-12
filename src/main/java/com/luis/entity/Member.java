@@ -15,6 +15,7 @@ public class Member {
     private StringProperty name = new SimpleStringProperty();
     private StringProperty phone = new SimpleStringProperty();
     private StringProperty createDate = new SimpleStringProperty();
+    private StringProperty address = new SimpleStringProperty();
 
     public Member() {
 
@@ -86,6 +87,19 @@ public class Member {
         this.createDate.set(createDate);
     }
 
+    public String getAddress() {
+        return address.get();
+    }
+
+    public StringProperty addressProperty() {
+        return address;
+    }
+
+    @SqlField("ADDRESS")
+    public void setAddress(String address) {
+        this.address.set(address);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -110,6 +124,8 @@ public class Member {
     @Override
     public String toString() {
         return "userId:" + userId.getValue() + ",name:" + name.getValue()
-                + ",phone:" + phone.getValue() + ",createDate:" + createDate.getValue() ;
+                + ",phone:" + phone.getValue()
+                + ",address:" + address.getValue()
+                + ",createDate:" + createDate.getValue() ;
     }
 }

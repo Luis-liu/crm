@@ -32,7 +32,7 @@ public class DetailController extends BaseController implements Initializable {
 
     private Member member;
     @FXML
-    private Label nameLabel, phoneLabel;
+    private Label nameLabel, phoneLabel, addressLabel;
     @FXML
     private TabPane detailTabPane;
     /**
@@ -44,6 +44,8 @@ public class DetailController extends BaseController implements Initializable {
     private TableColumn<AluminumAlloy, Integer> lvIdCol;
     @FXML
     private TableColumn<AluminumAlloy, Double> lvHeightCol, lvWidthCol, lvAreaCol, lvPriceCol, lvAmountCol;
+    @FXML
+    private TableColumn<AluminumAlloy, String> lvMaterialCol;
     private ObservableList<AluminumAlloy> alAlloyTableData = FXCollections.observableArrayList();
     private CommonService<AluminumAlloy> alAlloyService = new AlAlloyService();
 
@@ -56,6 +58,8 @@ public class DetailController extends BaseController implements Initializable {
     private TableColumn<SecurityNet, Integer> snIdCol;
     @FXML
     private TableColumn<SecurityNet, Double> snHeightCol, snWidthCol, snAreaCol, snPriceCol, snAmountCol, snPiaoCol;
+    @FXML
+    private TableColumn<AluminumAlloy, String> snMaterialCol;
     private ObservableList<SecurityNet> securityNetTableData = FXCollections.observableArrayList();
     private CommonService<SecurityNet> securityNetService = new SecurityNetService();
 
@@ -200,7 +204,13 @@ public class DetailController extends BaseController implements Initializable {
             alAlloyService.update(aluminumAlloy);
         });
         lvAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
-
+        lvMaterialCol.setCellValueFactory(cellData -> cellData.getValue().materialProperty());
+        lvMaterialCol.setOnEditCommit((TableColumn.CellEditEvent<AluminumAlloy, String> t) -> {
+            AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            aluminumAlloy.setMaterial(t.getNewValue());
+            // 刷新总金额
+            alAlloyService.update(aluminumAlloy);
+        });
         /**
          * 防盗网
          */

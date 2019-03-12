@@ -28,12 +28,12 @@ public class SqlConstant {
     /**
      * 新增铝合金
      */
-    public static final String SQL_ADD_ALALLOY = "insert into aluminum_alloy(user_id, height, width, price) values(%s, '%s','%s','%s')";
+    public static final String SQL_ADD_ALALLOY = "insert into aluminum_alloy(user_id, height, width, price, material) values(%s, '%s','%s','%s', '%s')";
 
     /**
      * 更新铝合金
      */
-    public static final String SQL_UPDATE_ALALLOY = "update aluminum_alloy set height='%s', width='%s', price='%s' where id=%s";
+    public static final String SQL_UPDATE_ALALLOY = "update aluminum_alloy set height='%s', width='%s', price='%s', material='%s' where id=%s";
 
     /**
      * 查询铝合金
@@ -43,12 +43,12 @@ public class SqlConstant {
     /**
      * 新增防盗网
      */
-    public static final String SQL_ADD_SECURITYNET= "insert into security_net(user_id, height, width, price, piao) values(%s, '%s','%s','%s','%s')";
+    public static final String SQL_ADD_SECURITYNET= "insert into security_net(user_id, height, width, price, piao, material) values(%s, '%s','%s','%s','%s', '%s')";
 
     /**
      * 更新防盗网
      */
-    public static final String SQL_UPDATE_SECURITYNET = "update security_net set height='%s', width='%s', price='%s', piao='%s' where id=%s";
+    public static final String SQL_UPDATE_SECURITYNET = "update security_net set height='%s', width='%s', price='%s', piao='%s', material='%s' where id=%s";
 
     /**
      * 查询防盗网

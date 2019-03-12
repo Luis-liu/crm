@@ -16,6 +16,7 @@ public class AluminumAlloy {
     private DoubleProperty width = new SimpleDoubleProperty();
     private DoubleProperty price = new SimpleDoubleProperty();
     private IntegerProperty userId = new SimpleIntegerProperty();
+    private StringProperty material = new SimpleStringProperty();
 
     private DoubleProperty area = new SimpleDoubleProperty();
     private DoubleProperty amount = new SimpleDoubleProperty();
@@ -121,6 +122,19 @@ public class AluminumAlloy {
         this.userId.set(userId);
     }
 
+    public String getMaterial() {
+        return material.get();
+    }
+
+    public StringProperty materialProperty() {
+        return material;
+    }
+
+    @SqlField("material")
+    public void setMaterial(String material) {
+        this.material.set(material);
+    }
+
     @Override
     public String toString() {
         return "AluminumAlloy{" +
@@ -131,6 +145,7 @@ public class AluminumAlloy {
                 ", price=" + price.getValue() +
                 ", area=" + area.getValue() +
                 ", amount=" + amount.getValue() +
+                ", material=" + material.getValue() +
                 '}';
     }
 }

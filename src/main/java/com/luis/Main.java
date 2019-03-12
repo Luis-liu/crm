@@ -3,7 +3,7 @@ package com.luis;
 import com.luis.controller.DetailController;
 import com.luis.controller.LoginController;
 import com.luis.controller.MainController;
-import com.luis.db.CommonDao;
+import com.luis.db.DBOperater;
 import com.luis.entity.Member;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +34,7 @@ public class Main extends Application {
         /**
          * 创建表
          */
-        CommonDao.updateTable();
+        DBOperater.initDB();
     }
 
     /**
