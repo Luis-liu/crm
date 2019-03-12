@@ -1,11 +1,8 @@
 package com.luis.db;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,51 +18,9 @@ import java.util.Map;
  * @author: liuyuansheng
  * @create: 2019-02-15 10:21
  **/
-public class CommonDao {
+public class CommonDao extends AbstractDB {
 
     private static final Logger logger = LoggerFactory.getLogger(CommonDao.class);
-
-    /**
-     * 创建表
-     * @throws SQLException
-     */
-    public static void crateTable() {
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            conn = ConnectionPool.getInstance().getConnection();
-            DatabaseMetaData meta = conn.getMetaData();
-
-            ResultSet rs = meta.getTables(null, null, "MEMBER",
-                    new String[] { "TABLE" });
-            if (!rs.next()) {
-                stmt = conn.createStatement();
-                String sql = getCreateSql();
-                stmt.execute(sql);
-                logger.info("crateTable success");
-            } else {
-                logger.info("table already exist");
-            }
-            rs.close();
-        } catch (SQLException e) {
-            logger.error("crateTable error", e);
-        } finally {
-            releaseConnection(conn, stmt, null);
-        }
-    }
-
-    private static String getCreateSql() {
-        try {
-            InputStream inputStream = CommonDao.class.getResourceAsStream("/config/ddl.sql");
-            byte[] bytes = new byte[inputStream.available()];
-            inputStream.read(bytes);
-            String str = new String(bytes);
-            return str;
-        } catch (Exception e) {
-            logger.error("getCreateSql error", e);
-        }
-        return null;
-    }
 
     /**
      * 新增数据
@@ -121,22 +76,6 @@ public class CommonDao {
             releaseConnection(conn, stmt, rs);
         }
         return list;
-    }
-
-    private static void releaseConnection(Connection conn, Statement stmt, ResultSet rs) {
-        try {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stmt != null) {
-                stmt.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        } catch (SQLException e) {
-            logger.error("getCreateSql error", e);
-        }
     }
 
 }

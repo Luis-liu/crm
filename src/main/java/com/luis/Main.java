@@ -34,7 +34,7 @@ public class Main extends Application {
         /**
          * 创建表
          */
-        CommonDao.crateTable();
+        CommonDao.updateTable();
     }
 
     /**

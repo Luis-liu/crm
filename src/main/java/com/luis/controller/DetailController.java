@@ -14,6 +14,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LocalDateStringConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -25,6 +27,8 @@ import java.util.ResourceBundle;
  * Date:     2019/2/17 13:42
  */
 public class DetailController extends BaseController implements Initializable {
+
+    private static final Logger logger = LoggerFactory.getLogger(DetailController.class);
 
     private Member member;
     @FXML
@@ -351,31 +355,32 @@ public class DetailController extends BaseController implements Initializable {
      * 添加数据
      */
     public void addDetailInfo() {
-        String name = detailTabPane.getSelectionModel().getSelectedItem().getText();
+        String name = detailTabPane.getSelectionModel().getSelectedItem().getId();
+        logger.info("addDetailInfo tab={}", name);
         int id;
         switch (name) {
-            case "铝合金":
+            case "tab1":
                 AluminumAlloy aluminumAlloy = new AluminumAlloy();
                 aluminumAlloy.setUserId(member.getUserId());
                 id = alAlloyService.add(aluminumAlloy);
                 aluminumAlloy.setId(id);
                 alAlloyTableData.add(aluminumAlloy);
                 break;
-            case "防盗网":
+            case "tab2":
                 SecurityNet securityNet = new SecurityNet();
                 securityNet.setUserId(member.getUserId());
                 id = securityNetService.add(securityNet);
                 securityNet.setId(id);
                 securityNetTableData.add(securityNet);
                 break;
-            case "其他":
+            case "tab3":
                 OtherMaterial otherMaterial = new OtherMaterial();
                 otherMaterial.setUserId(member.getUserId());
                 id =  otherMaterialService.add(otherMaterial);
                 otherMaterial.setId(id);
                 otherTableData.add(otherMaterial);
                 break;
-            case "付款账单":
+            case "tab4":
                 Bill bill = new Bill();
                 bill.setPayTime(LocalDate.now());
                 id = billService.add(bill);

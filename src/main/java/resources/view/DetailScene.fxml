@@ -46,7 +46,7 @@
       </Label>
       <TabPane fx:id="detailTabPane" layoutX="42.0" layoutY="111.0" prefHeight="346.0" prefWidth="565.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="铝合金">
+          <Tab text="铝合金" id="tab1">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -64,7 +64,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="防盗网">
+          <Tab text="防盗网" id="tab2">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -83,7 +83,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="其它">
+            <Tab text="其它" id="tab3">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -100,7 +100,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="付款账单">
+            <Tab text="付款账单" id="tab4">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
