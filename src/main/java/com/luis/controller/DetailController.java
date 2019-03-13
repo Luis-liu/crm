@@ -306,7 +306,6 @@ public class DetailController extends BaseController implements Initializable {
         otherNameCol.setOnEditCommit((TableColumn.CellEditEvent<OtherMaterial, String> t) -> {
             OtherMaterial otherMaterial = t.getTableView().getItems().get(t.getTablePosition().getRow());
             otherMaterial.setName(t.getNewValue());
-            otherMaterial.refresh();
             otherMaterialService.update(otherMaterial);
         });
         otherNumberCol.setCellValueFactory(cellData -> cellData.getValue().numberProperty().asObject());
@@ -315,6 +314,7 @@ public class DetailController extends BaseController implements Initializable {
             OtherMaterial otherMaterial = t.getTableView().getItems().get(t.getTablePosition().getRow());
             otherMaterial.setNumber(t.getNewValue());
             otherMaterial.refresh();
+            otherTotalData.setAmount(EntityUtil.getOtherTotalAmount(otherTableData));
             otherMaterialService.update(otherMaterial);
         });
         otherPriceCol.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
