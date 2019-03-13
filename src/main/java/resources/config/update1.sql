@@ -1,3 +1,3 @@
-alter table ALUMINUM_ALLOY add column MATERIAL varchar(200) NOT NULL COMMENT '材料';
-alter table SECURITY_NET add column MATERIAL varchar(200) NOT NULL COMMENT '材料';
-alter table MEMBER add column ADDRESS varchar(200) NOT NULL COMMENT '地址';
+alter table ALUMINUM_ALLOY add column MATERIAL varchar(200) default '' COMMENT '材料';
+alter table SECURITY_NET add column MATERIAL varchar(200) default '' COMMENT '材料';
+alter table MEMBER add column ADDRESS varchar(200) default '' COMMENT '地址';

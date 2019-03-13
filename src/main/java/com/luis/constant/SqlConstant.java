@@ -18,12 +18,12 @@ public class SqlConstant {
     /**
      * 更新客户
      */
-    public static final String SQL_UPDATE_MEMBER = "update member set name='%s' , phone='%s' where user_id=%s";
+    public static final String SQL_UPDATE_MEMBER = "update member set name='%s' , phone='%s', address='%s' where user_id=%s";
 
     /**
      * 查询用户
      */
-    public static final String SQL_QUERY_MEMBER = "select * from member";
+    public static final String SQL_QUERY_MEMBER = "select * from member ";
 
     /**
      * 新增铝合金
@@ -38,7 +38,7 @@ public class SqlConstant {
     /**
      * 查询铝合金
      */
-    public static final String SQL_QUERY_ALALLOY = "select * from aluminum_alloy where user_id=%s";
+    public static final String SQL_QUERY_ALALLOY = "select * from aluminum_alloy where user_id=%s order by id";
 
     /**
      * 新增防盗网
@@ -53,22 +53,22 @@ public class SqlConstant {
     /**
      * 查询防盗网
      */
-    public static final String SQL_QUERY_SECURITYNET= "select * from security_net where user_id=%s";
+    public static final String SQL_QUERY_SECURITYNET= "select * from security_net where user_id=%s order by id";
 
     /**
-     * 新增防盗网
+     * 新增其它
      */
     public static final String SQL_ADD_OTHERMATERIAL= "insert into other_material(user_id, name, number, price) values(%s, '%s','%s','%s')";
 
     /**
-     * 更新防盗网
+     * 更新其它
      */
     public static final String SQL_UPDATE_OTHERMATERIAL = "update other_material set name='%s', number='%s', price='%s' where id=%s";
 
     /**
-     * 查询防盗网
+     * 查询其它
      */
-    public static final String SQL_QUERY_OTHERMATERIAL= "select * from other_material where user_id=%s";
+    public static final String SQL_QUERY_OTHERMATERIAL= "select * from other_material where user_id=%s order by id";
 
     /**
      * 新增付款账单
@@ -83,5 +83,5 @@ public class SqlConstant {
     /**
      * 查询付款账单
      */
-    public static final String SQL_QUERY_BILL= "select * from bill where user_id=%s";
+    public static final String SQL_QUERY_BILL= "select * from bill where user_id=%s order by id";
 }

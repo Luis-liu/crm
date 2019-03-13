@@ -15,7 +15,7 @@ import java.util.Map;
  * Author:   liuyuansheng
  * Date:     2019/2/17 21:40
  */
-public class AlAlloyService implements CommonService<AluminumAlloy> {
+public class AlAlloyService extends BaseService<AluminumAlloy> {
 
     private static final Logger logger = LoggerFactory.getLogger(BillService.class);
     
@@ -28,7 +28,7 @@ public class AlAlloyService implements CommonService<AluminumAlloy> {
     public List<AluminumAlloy> query(Object userId) {
         try {
             List<AluminumAlloy> resultList = new ArrayList<>();
-            String sql = String.format(SqlConstant.SQL_QUERY_ALALLOY, userId);
+            String sql = format(SqlConstant.SQL_QUERY_ALALLOY, userId);
             List<Map<String, Object>> mapList = CommonDao.queryInfo(sql);
             if (mapList != null && mapList.size() > 0) {
                 for (Map<String, Object> map : mapList) {
@@ -53,7 +53,8 @@ public class AlAlloyService implements CommonService<AluminumAlloy> {
         int id = 0;
         try {
             String sql = String.format(SqlConstant.SQL_ADD_ALALLOY, aluminumAlloy.getUserId(),
-                    aluminumAlloy.getHeight(), aluminumAlloy.getWidth(), aluminumAlloy.getPrice());
+                    aluminumAlloy.getHeight(), aluminumAlloy.getWidth(),
+                    aluminumAlloy.getPrice(), aluminumAlloy.getMaterial());
             id = CommonDao.addInfo(sql);
             logger.info("add aluminumAlloy success");
         } catch (Exception e) {
@@ -70,7 +71,8 @@ public class AlAlloyService implements CommonService<AluminumAlloy> {
     public void update(AluminumAlloy aluminumAlloy) {
         try {
             String sql = String.format(SqlConstant.SQL_UPDATE_ALALLOY,
-                    aluminumAlloy.getHeight(), aluminumAlloy.getWidth(), aluminumAlloy.getPrice(), aluminumAlloy.getId());
+                    aluminumAlloy.getHeight(), aluminumAlloy.getWidth(),
+                    aluminumAlloy.getPrice(), aluminumAlloy.getMaterial(), aluminumAlloy.getId());
             CommonDao.addInfo(sql);
             logger.info("update aluminumAlloy success");
         } catch (Exception e) {

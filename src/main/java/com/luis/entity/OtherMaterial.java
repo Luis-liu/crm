@@ -12,7 +12,7 @@ import javafx.beans.property.*;
 public class OtherMaterial {
 
     private IntegerProperty id = new SimpleIntegerProperty();
-    private StringProperty name = new SimpleStringProperty();
+    private StringProperty name = new SimpleStringProperty("");
     private IntegerProperty number = new SimpleIntegerProperty();
     private DoubleProperty price = new SimpleDoubleProperty();
     private IntegerProperty userId = new SimpleIntegerProperty();

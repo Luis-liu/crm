@@ -4,13 +4,13 @@ import com.luis.entity.*;
 import com.luis.enums.TabNameEnum;
 import com.luis.enums.TotalType;
 import com.luis.service.*;
+import com.luis.util.EditCell;
 import com.luis.util.EntityUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LocalDateStringConverter;
@@ -47,7 +47,7 @@ public class DetailController extends BaseController implements Initializable {
     @FXML
     private TableColumn<AluminumAlloy, String> lvMaterialCol;
     private ObservableList<AluminumAlloy> alAlloyTableData = FXCollections.observableArrayList();
-    private CommonService<AluminumAlloy> alAlloyService = new AlAlloyService();
+    private BaseService<AluminumAlloy> alAlloyService = new AlAlloyService();
 
     /**
      * 防盗网
@@ -59,9 +59,9 @@ public class DetailController extends BaseController implements Initializable {
     @FXML
     private TableColumn<SecurityNet, Double> snHeightCol, snWidthCol, snAreaCol, snPriceCol, snAmountCol, snPiaoCol;
     @FXML
-    private TableColumn<AluminumAlloy, String> snMaterialCol;
+    private TableColumn<SecurityNet, String> snMaterialCol;
     private ObservableList<SecurityNet> securityNetTableData = FXCollections.observableArrayList();
-    private CommonService<SecurityNet> securityNetService = new SecurityNetService();
+    private BaseService<SecurityNet> securityNetService = new SecurityNetService();
 
     /**
      * 其他
@@ -75,7 +75,7 @@ public class DetailController extends BaseController implements Initializable {
     @FXML
     private TableColumn<OtherMaterial, Double> otherPriceCol, otherAmountCol;
     private ObservableList<OtherMaterial> otherTableData = FXCollections.observableArrayList();
-    private CommonService<OtherMaterial> otherMaterialService = new OtherMaterialService();
+    private BaseService<OtherMaterial> otherMaterialService = new OtherMaterialService();
     /**
      * 支付金额
      */
@@ -88,7 +88,7 @@ public class DetailController extends BaseController implements Initializable {
     @FXML
     private TableColumn<Bill, Double> billAmountCol;
     private ObservableList<Bill> billTableData = FXCollections.observableArrayList();
-    private CommonService<Bill> billService = new BillService();
+    private BaseService<Bill> billService = new BillService();
 
     /**
      * 总数
@@ -114,6 +114,7 @@ public class DetailController extends BaseController implements Initializable {
         this.member = member;
         nameLabel.setText(member.getName());
         phoneLabel.setText(member.getPhone());
+        addressLabel.setText(member.getAddress());
         // 初始化铝合金数据
         alAlloyTableData.addAll(alAlloyService.query(member.getUserId()));
         alAlloyTable.setItems(alAlloyTableData);
@@ -171,7 +172,7 @@ public class DetailController extends BaseController implements Initializable {
         });
         lvHeightCol.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asObject());
         // 设置为可编辑
-        lvHeightCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        lvHeightCol.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
         // 编辑提交时触发的动作
         lvHeightCol.setOnEditCommit((TableColumn.CellEditEvent<AluminumAlloy, Double> t) -> {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
@@ -182,7 +183,7 @@ public class DetailController extends BaseController implements Initializable {
             alAlloyService.update(aluminumAlloy);
         });
         lvWidthCol.setCellValueFactory(cellData -> cellData.getValue().widthProperty().asObject());
-        lvWidthCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        lvWidthCol.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
         lvWidthCol.setOnEditCommit((TableColumn.CellEditEvent<AluminumAlloy, Double> t) -> {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setWidth(t.getNewValue());
@@ -194,7 +195,7 @@ public class DetailController extends BaseController implements Initializable {
         });
         lvAreaCol.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
         lvPriceCol.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
-        lvPriceCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        lvPriceCol.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
         lvPriceCol.setOnEditCommit((TableColumn.CellEditEvent<AluminumAlloy, Double> t) -> {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setPrice(t.getNewValue());
@@ -205,10 +206,10 @@ public class DetailController extends BaseController implements Initializable {
         });
         lvAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
         lvMaterialCol.setCellValueFactory(cellData -> cellData.getValue().materialProperty());
+        lvMaterialCol.setCellFactory(column -> EditCell.createStringEditCell());
         lvMaterialCol.setOnEditCommit((TableColumn.CellEditEvent<AluminumAlloy, String> t) -> {
             AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
             aluminumAlloy.setMaterial(t.getNewValue());
-            // 刷新总金额
             alAlloyService.update(aluminumAlloy);
         });
         /**
@@ -232,7 +233,7 @@ public class DetailController extends BaseController implements Initializable {
         });
         snHeightCol.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asObject());
         // 设置为可编辑
-        snHeightCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        snHeightCol.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
         // 编辑提交时触发的动作
         snHeightCol.setOnEditCommit((TableColumn.CellEditEvent<SecurityNet, Double> t) -> {
             SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
@@ -243,7 +244,7 @@ public class DetailController extends BaseController implements Initializable {
             securityNetService.update(securityNet);
         });
         snWidthCol.setCellValueFactory(cellData -> cellData.getValue().widthProperty().asObject());
-        snWidthCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        snWidthCol.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
         snWidthCol.setOnEditCommit((TableColumn.CellEditEvent<SecurityNet, Double> t) -> {
             SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
             securityNet.setWidth(t.getNewValue());
@@ -253,7 +254,7 @@ public class DetailController extends BaseController implements Initializable {
             securityNetService.update(securityNet);
         });
         snPiaoCol.setCellValueFactory(cellData -> cellData.getValue().piaoProperty().asObject());
-        snPiaoCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        snPiaoCol.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
         snPiaoCol.setOnEditCommit((TableColumn.CellEditEvent<SecurityNet, Double> t) -> {
             SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
             securityNet.setPiao(t.getNewValue());
@@ -264,7 +265,7 @@ public class DetailController extends BaseController implements Initializable {
         });
         snAreaCol.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
         snPriceCol.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
-        snPriceCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        snPriceCol.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
         snPriceCol.setOnEditCommit((TableColumn.CellEditEvent<SecurityNet, Double> t) -> {
             SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
             securityNet.setPrice(t.getNewValue());
@@ -273,7 +274,14 @@ public class DetailController extends BaseController implements Initializable {
             securityNetService.update(securityNet);
         });
         snAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
-
+        snMaterialCol.setCellValueFactory(cellData -> cellData.getValue().materialProperty());
+        snMaterialCol.setCellFactory(column -> EditCell.createStringEditCell());
+        snMaterialCol.setOnEditCommit((TableColumn.CellEditEvent<SecurityNet, String> t) -> {
+            SecurityNet securityNet = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            securityNet.setMaterial(t.getNewValue());
+            securityNetService.update(securityNet);
+        });
+        /**
         /**
          * 其他
          */
@@ -294,7 +302,7 @@ public class DetailController extends BaseController implements Initializable {
             return cell;
         });
         otherNameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        otherNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        otherNameCol.setCellFactory(column -> EditCell.createStringEditCell());
         otherNameCol.setOnEditCommit((TableColumn.CellEditEvent<OtherMaterial, String> t) -> {
             OtherMaterial otherMaterial = t.getTableView().getItems().get(t.getTablePosition().getRow());
             otherMaterial.setName(t.getNewValue());
@@ -302,7 +310,7 @@ public class DetailController extends BaseController implements Initializable {
             otherMaterialService.update(otherMaterial);
         });
         otherNumberCol.setCellValueFactory(cellData -> cellData.getValue().numberProperty().asObject());
-        otherNumberCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        otherNumberCol.setCellFactory(column -> new EditCell<>(new IntegerStringConverter()));
         otherNumberCol.setOnEditCommit((TableColumn.CellEditEvent<OtherMaterial, Integer> t) -> {
             OtherMaterial otherMaterial = t.getTableView().getItems().get(t.getTablePosition().getRow());
             otherMaterial.setNumber(t.getNewValue());
@@ -310,7 +318,7 @@ public class DetailController extends BaseController implements Initializable {
             otherMaterialService.update(otherMaterial);
         });
         otherPriceCol.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
-        otherPriceCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        otherPriceCol.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
         otherPriceCol.setOnEditCommit((TableColumn.CellEditEvent<OtherMaterial, Double> t) -> {
             OtherMaterial otherMaterial = t.getTableView().getItems().get(t.getTablePosition().getRow());
             otherMaterial.setPrice(t.getNewValue());
@@ -339,7 +347,7 @@ public class DetailController extends BaseController implements Initializable {
             return cell;
         });
         billAmountCol.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
-        billAmountCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        billAmountCol.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
         billAmountCol.setOnEditCommit((TableColumn.CellEditEvent<Bill, Double> t) -> {
             Bill bill = t.getTableView().getItems().get(t.getTablePosition().getRow());
             bill.setAmount(t.getNewValue());
@@ -347,7 +355,7 @@ public class DetailController extends BaseController implements Initializable {
             billService.update(bill);
         });
         billPayTimeCol.setCellValueFactory(cellData -> cellData.getValue().payTimeProperty());
-        billPayTimeCol.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
+        billPayTimeCol.setCellFactory(column -> new EditCell<>(new LocalDateStringConverter()));
         billPayTimeCol.setOnEditCommit((TableColumn.CellEditEvent<Bill, LocalDate> t) -> {
             Bill bill = t.getTableView().getItems().get(t.getTablePosition().getRow());
             bill.setPayTime(t.getNewValue());
@@ -392,6 +400,7 @@ public class DetailController extends BaseController implements Initializable {
                 break;
             case "tab4":
                 Bill bill = new Bill();
+                bill.setUserId(member.getUserId());
                 bill.setPayTime(LocalDate.now());
                 id = billService.add(bill);
                 bill.setId(id);

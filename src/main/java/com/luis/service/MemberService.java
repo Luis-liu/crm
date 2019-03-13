@@ -20,7 +20,7 @@ import java.util.Map;
  * @author: liuyuansheng
  * @create: 2019-02-16 11:09
  **/
-public class MemberService implements CommonService<Member> {
+public class MemberService extends BaseService<Member> {
 
     private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
 
@@ -57,6 +57,7 @@ public class MemberService implements CommonService<Member> {
             if (StringUtils.isNotEmpty(searchValue)) {
                 sql = sql + String.format(QUERY_SQL, cancatLike(searchValue), cancatLike(searchValue));
             }
+            sql += " order by user_id";
             List<Map<String, Object>> mapList = CommonDao.queryInfo(sql);
             if (mapList != null && mapList.size() > 0) {
                 for (Map<String, Object> map : mapList) {
@@ -77,7 +78,8 @@ public class MemberService implements CommonService<Member> {
     @Override
     public void update(Member member) {
         try {
-            String sql = String.format(SqlConstant.SQL_UPDATE_MEMBER, member.getName(), member.getPhone(), member.getUserId());
+            String sql = String.format(SqlConstant.SQL_UPDATE_MEMBER, member.getName(), member.getPhone(),
+                    member.getAddress(), member.getUserId());
             CommonDao.addInfo(sql);
             logger.info("update member success");
         } catch (Exception e) {

@@ -2,12 +2,10 @@ package com.luis;
 
 import com.luis.entity.Bill;
 import com.luis.service.BillService;
-import com.luis.service.CommonService;
-import com.luis.util.DateUtil;
+import com.luis.service.BaseService;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +18,7 @@ import java.util.List;
  **/
 public class BillServiceTest {
 
-    private CommonService<Bill> service = new BillService();
+    private BaseService<Bill> service = new BillService();
 
     @Test
     public void add() {

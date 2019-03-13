@@ -1,6 +1,7 @@
 package com.luis;
 
 import com.luis.db.CommonDao;
+import com.luis.db.DBOperater;
 import org.junit.Test;
 
 /**
@@ -15,6 +16,6 @@ public class CommonDaoTest {
 
     @Test
     public void getTable() {
-        CommonDao.crateTable();
+        DBOperater.initDB();
     }
 }

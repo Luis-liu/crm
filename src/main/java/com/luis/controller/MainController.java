@@ -33,13 +33,7 @@ public class MainController extends BaseController implements Initializable {
     @FXML
     private TableColumn<Member, Integer> userIdCol;
     @FXML
-    private TableColumn<Member, String> createDateCol;
-    @FXML
-    private TableColumn<Member, String> nameCol;
-    @FXML
-    private TableColumn<Member, String> phoneCol;
-    @FXML
-    private TableColumn<Member, String> operateCol;
+    private TableColumn<Member, String> createDateCol, nameCol, phoneCol, addressCol, operateCol;
     /**
      * 搜索字段
      */
@@ -59,6 +53,7 @@ public class MainController extends BaseController implements Initializable {
         createDateCol.setCellValueFactory(cellData -> cellData.getValue().createDateProperty());
         nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         phoneCol.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
+        addressCol.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
 
         // 初始化数据，查询所有客户
         tableData.addAll(memberService.query(null));

@@ -16,7 +16,7 @@ public class AluminumAlloy {
     private DoubleProperty width = new SimpleDoubleProperty();
     private DoubleProperty price = new SimpleDoubleProperty();
     private IntegerProperty userId = new SimpleIntegerProperty();
-    private StringProperty material = new SimpleStringProperty();
+    private StringProperty material = new SimpleStringProperty("");
 
     private DoubleProperty area = new SimpleDoubleProperty();
     private DoubleProperty amount = new SimpleDoubleProperty();

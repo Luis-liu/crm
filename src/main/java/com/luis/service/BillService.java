@@ -19,7 +19,7 @@ import java.util.Map;
  * @author: liuyuansheng
  * @create: 2019-02-21 17:45
  **/
-public class BillService implements CommonService<Bill> {
+public class BillService extends BaseService<Bill> {
 
     private static final Logger logger = LoggerFactory.getLogger(AlAlloyService.class);
 

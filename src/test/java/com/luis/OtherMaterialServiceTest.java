@@ -1,7 +1,7 @@
 package com.luis;
 
 import com.luis.entity.OtherMaterial;
-import com.luis.service.CommonService;
+import com.luis.service.BaseService;
 import com.luis.service.OtherMaterialService;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class OtherMaterialServiceTest {
 
-    private CommonService<OtherMaterial> service = new OtherMaterialService();
+    private BaseService<OtherMaterial> service = new OtherMaterialService();
 
     @Test
     public void addTest() {

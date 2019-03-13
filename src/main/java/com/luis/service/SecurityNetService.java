@@ -16,7 +16,7 @@ import java.util.Map;
  * Author:   liuyuansheng
  * Date:     2019/2/19 21:42
  */
-public class SecurityNetService implements CommonService<SecurityNet> {
+public class SecurityNetService extends BaseService<SecurityNet> {
 
     public static final Logger logger = LoggerFactory.getLogger(SecurityNetService.class);
 
@@ -53,8 +53,9 @@ public class SecurityNetService implements CommonService<SecurityNet> {
     public Integer add(SecurityNet securityNet) {
         int id = 0;
         try {
-            String sql = String.format(SqlConstant.SQL_ADD_SECURITYNET, securityNet.getUserId(),
-                    securityNet.getHeight(), securityNet.getWidth(), securityNet.getPrice(), securityNet.getPiao());
+            String sql = format(SqlConstant.SQL_ADD_SECURITYNET, securityNet.getUserId(),
+                    securityNet.getHeight(), securityNet.getWidth(),
+                    securityNet.getPrice(), securityNet.getPiao(), securityNet.getMaterial());
             id = CommonDao.addInfo(sql);
             logger.info("add securityNet success");
         } catch (Exception e) {
@@ -70,8 +71,9 @@ public class SecurityNetService implements CommonService<SecurityNet> {
     @Override
     public void update(SecurityNet securityNet) {
         try {
-            String sql = String.format(SqlConstant.SQL_UPDATE_SECURITYNET,
-                    securityNet.getHeight(), securityNet.getWidth(), securityNet.getPrice(), securityNet.getPiao(), securityNet.getId());
+            String sql = format(SqlConstant.SQL_UPDATE_SECURITYNET,
+                    securityNet.getHeight(), securityNet.getWidth(),
+                    securityNet.getPrice(), securityNet.getPiao(), securityNet.getMaterial(),  securityNet.getId());
             CommonDao.addInfo(sql);
             logger.info("update securityNet success");
         } catch (Exception e) {

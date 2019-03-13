@@ -16,11 +16,12 @@
       <Button fx:id="searchButton" layoutX="283.0" layoutY="93.0" mnemonicParsing="false" onAction="#searchMember" prefHeight="27.0" prefWidth="66.0" text="搜索" />
       <TableView fx:id="myTable" editable="true" layoutX="48.0" layoutY="152.0" prefHeight="329.0" prefWidth="764.0">
         <columns>
-          <TableColumn fx:id="userIdCol" prefWidth="114.0" text="序号" />
-          <TableColumn fx:id="createDateCol" prefWidth="167.0" text="日期" />
-            <TableColumn fx:id="nameCol" prefWidth="180.0" text="客户" />
-            <TableColumn fx:id="phoneCol" prefWidth="209.0" text="电话" />
-            <TableColumn fx:id="operateCol" prefWidth="93.0" text="操作" />
+          <TableColumn fx:id="userIdCol" prefWidth="87.0" text="序号" />
+          <TableColumn fx:id="createDateCol" prefWidth="139.0" text="日期" />
+            <TableColumn fx:id="nameCol" prefWidth="117.0" text="客户" />
+            <TableColumn fx:id="phoneCol" prefWidth="128.0" text="电话" />
+            <TableColumn fx:id="addressCol" prefWidth="200.0" text="地址" />
+            <TableColumn fx:id="operateCol" prefWidth="92.0" text="操作" />
         </columns>
       </TableView>
       <Button fx:id="createMemberBtn" layoutX="661.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleNewMember" prefHeight="27.0" prefWidth="66.0" text="新建" />

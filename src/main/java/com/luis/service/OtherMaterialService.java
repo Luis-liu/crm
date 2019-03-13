@@ -15,9 +15,9 @@ import java.util.Map;
  * Author:   liuyuansheng
  * Date:     2019/2/19 23:10
  */
-public class OtherMaterialService implements CommonService<OtherMaterial> {
+public class OtherMaterialService extends BaseService<OtherMaterial> {
     
-    public static final Logger logger = LoggerFactory.getLogger(OtherMaterialService.class); 
+    public static final Logger logger = LoggerFactory.getLogger(OtherMaterialService.class);
 
     @Override
     public Integer add(OtherMaterial entity) {
@@ -37,7 +37,7 @@ public class OtherMaterialService implements CommonService<OtherMaterial> {
     public List<OtherMaterial> query(Object userId) {
         try {
             List<OtherMaterial> resultList = new ArrayList<>();
-            String sql = String.format(SqlConstant.SQL_QUERY_OTHERMATERIAL, userId);
+            String sql = format(SqlConstant.SQL_QUERY_OTHERMATERIAL, userId);
             List<Map<String, Object>> mapList = CommonDao.queryInfo(sql);
             if (mapList != null && mapList.size() > 0) {
                 for (Map<String, Object> map : mapList) {
@@ -56,7 +56,7 @@ public class OtherMaterialService implements CommonService<OtherMaterial> {
     @Override
     public void update(OtherMaterial entity) {
         try {
-            String sql = String.format(SqlConstant.SQL_UPDATE_OTHERMATERIAL,
+            String sql = format(SqlConstant.SQL_UPDATE_OTHERMATERIAL,
                     entity.getName(), entity.getNumber(), entity.getPrice(), entity.getId());
             CommonDao.addInfo(sql);
             logger.info("update OtherMaterial success");

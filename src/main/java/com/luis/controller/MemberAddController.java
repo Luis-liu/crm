@@ -28,12 +28,7 @@ public class MemberAddController extends BaseController {
      * 客户姓名
      */
     @FXML
-    private TextField nameField;
-    /**
-     * 客户电话
-     */
-    @FXML
-    private TextField phoneField;
+    private TextField nameField, phoneField, addressField;
 
     @FXML
     private void initialize() {
@@ -48,6 +43,7 @@ public class MemberAddController extends BaseController {
         if (member != null) {
             nameField.setText(member.getName());
             phoneField.setText(member.getPhone());
+            addressField.setText(member.getAddress());
         }
     }
 
@@ -58,6 +54,7 @@ public class MemberAddController extends BaseController {
     public void saveMemberInfo(ActionEvent event) {
         String name = nameField.getText();
         String phone = phoneField.getText();
+        String address = addressField.getText();
         if (StringUtils.isNotEmpty(name) || StringUtils.isNotEmpty(phone)) {
             if (member != null) {
                 // 编辑客户
@@ -68,6 +65,7 @@ public class MemberAddController extends BaseController {
                 }
                 member.setName(name);
                 member.setPhone(phone);
+                member.setAddress(address);
                 mainController.updateMember(member);
             } else {
                 // 新增客户
@@ -76,6 +74,7 @@ public class MemberAddController extends BaseController {
                     return;
                 }
                 Member newMember = new Member(name, phone);
+                newMember.setAddress(address);
                 mainController.addMember(newMember);
             }
             dialogStage.close();
