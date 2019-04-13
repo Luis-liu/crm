@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.io.InputStream;
 import java.sql.*;
 
+import static org.apache.commons.io.Charsets.UTF_8;
+
 /**
  * All rights Reserved, Designed By HQYG
  * Copyright:   Copyright(C) 2016
@@ -113,7 +115,7 @@ public class DBOperater extends AbstractDB {
             InputStream inputStream = CommonDao.class.getResourceAsStream("/config/" + fileName);
             byte[] bytes = new byte[inputStream.available()];
             inputStream.read(bytes);
-            String str = new String(bytes);
+            String str = new String(bytes, UTF_8);
             return str;
         } catch (Exception e) {
             logger.error("getSql error", e);

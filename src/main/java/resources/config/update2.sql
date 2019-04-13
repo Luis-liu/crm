@@ -1,1 +1,1 @@
-alter table ALUMINUM_ALLOY add column TYPE int(10) default 0 COMMENT '类型:0 铝合金 1 其他1';
+alter table ALUMINUM_ALLOY add column TYPE int(11) unsigned NOT NULL default 0 COMMENT '类型';
