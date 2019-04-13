@@ -21,8 +21,15 @@ public class AluminumAlloy {
     private DoubleProperty area = new SimpleDoubleProperty();
     private DoubleProperty amount = new SimpleDoubleProperty();
 
+    private IntegerProperty type = new SimpleIntegerProperty(0);
+
     public AluminumAlloy() {
 
+    }
+
+    public AluminumAlloy(int userId, int type) {
+        this.setUserId(userId);
+        this.setType(type);
     }
 
     public int getId() {
@@ -133,6 +140,19 @@ public class AluminumAlloy {
     @SqlField("material")
     public void setMaterial(String material) {
         this.material.set(material);
+    }
+
+    public int getType() {
+        return type.get();
+    }
+
+    public IntegerProperty typeProperty() {
+        return type;
+    }
+
+    @SqlField("type")
+    public void setType(int type) {
+        this.type.set(type);
     }
 
     @Override

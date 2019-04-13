@@ -102,6 +102,25 @@
                   </AnchorPane>
               </content>
             </Tab>
+            <Tab id="tab5" text="其它1">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="alAlloyTable1" editable="true" prefHeight="326.0" prefWidth="639.0">
+                                <columns>
+                                    <TableColumn fx:id="lvIdCol1" prefWidth="56.0" text="序号" />
+                                    <TableColumn fx:id="lvHeightCol1" prefWidth="78.0" text="高" />
+                                    <TableColumn fx:id="lvWidthCol1" prefWidth="83.0" text="宽" />
+                                    <TableColumn fx:id="lvAreaCol1" prefWidth="96.0" text="平方" />
+                                    <TableColumn fx:id="lvPriceCol1" prefWidth="96.0" text="单价" />
+                                    <TableColumn fx:id="lvMaterialCol1" prefWidth="126.0" text="材料" />
+                                    <TableColumn fx:id="lvAmountCol1" prefWidth="103.0" text="金额" />
+                                </columns>
+                            </TableView>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
             <Tab id="tab4" text="付款账单">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

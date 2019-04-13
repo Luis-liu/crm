@@ -1,6 +1,7 @@
 package com.luis.service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author:   liuyuansheng
@@ -13,6 +14,15 @@ public abstract class BaseService<T> {
      * @param entity
      */
     public abstract Integer add(T entity);
+
+    /**
+     * 查询
+     * @param entity
+     * @return
+     */
+    public List<T> queryByEntity(T entity) {
+        return null;
+    }
 
     /**
      * 查询

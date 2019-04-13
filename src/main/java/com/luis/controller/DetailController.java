@@ -50,6 +50,19 @@ public class DetailController extends BaseController implements Initializable {
     private BaseService<AluminumAlloy> alAlloyService = new AlAlloyService();
 
     /**
+     * 铝合金1
+     */
+    @FXML
+    private TableView<AluminumAlloy> alAlloyTable1;
+    @FXML
+    private TableColumn<AluminumAlloy, Integer> lvIdCol1;
+    @FXML
+    private TableColumn<AluminumAlloy, Double> lvHeightCol1, lvWidthCol1, lvAreaCol1, lvPriceCol1, lvAmountCol1;
+    @FXML
+    private TableColumn<AluminumAlloy, String> lvMaterialCol1;
+    private ObservableList<AluminumAlloy> alAlloyTableData1 = FXCollections.observableArrayList();
+
+    /**
      * 防盗网
      */
     @FXML
@@ -101,6 +114,7 @@ public class DetailController extends BaseController implements Initializable {
     private TableColumn<TotalData, Double> totalAreaCol, totalAmountCol;
     private ObservableList<TotalData> totalTableData = FXCollections.observableArrayList();
     private TotalData lvTotalData = new TotalData();
+    private TotalData lvTotalData1 = new TotalData();
     private TotalData snTotalData = new TotalData();
     private TotalData otherTotalData = new TotalData();
     private TotalData billTotalData = new TotalData();
@@ -118,6 +132,9 @@ public class DetailController extends BaseController implements Initializable {
         // 初始化铝合金数据
         alAlloyTableData.addAll(alAlloyService.query(member.getUserId()));
         alAlloyTable.setItems(alAlloyTableData);
+        // 初始化铝合金1（其它1）数据
+        alAlloyTableData1.addAll(alAlloyService.queryByEntity(new AluminumAlloy(member.getUserId(), 1)));
+        alAlloyTable1.setItems(alAlloyTableData1);
         // 初始化防盗网数据
         securityNetTableData.addAll(securityNetService.query(member.getUserId()));
         securityNetTable.setItems(securityNetTableData);
@@ -132,6 +149,11 @@ public class DetailController extends BaseController implements Initializable {
         lvTotalData.setArea(EntityUtil.getAllData(alAlloyTableData, TotalType.AREA.getType()));
         lvTotalData.setAmount(EntityUtil.getAllData(alAlloyTableData, TotalType.AMOUNT.getType()));
         totalTableData.add(lvTotalData);
+
+        lvTotalData1.setName(TabNameEnum.Al1.getName());
+        lvTotalData1.setArea(EntityUtil.getAllData(alAlloyTableData1, TotalType.AREA.getType()));
+        lvTotalData1.setAmount(EntityUtil.getAllData(alAlloyTableData1, TotalType.AMOUNT.getType()));
+        totalTableData.add(lvTotalData1);
 
         snTotalData.setName(TabNameEnum.SN.getName());
         snTotalData.setArea(EntityUtil.getAllData(securityNetTableData, TotalType.AREA.getType()));
@@ -212,6 +234,69 @@ public class DetailController extends BaseController implements Initializable {
             aluminumAlloy.setMaterial(t.getNewValue());
             alAlloyService.update(aluminumAlloy);
         });
+
+        /**
+         * 铝合金1
+         */
+        lvIdCol1.setCellFactory(col -> {
+            TableCell<AluminumAlloy, Integer> cell = new TableCell<AluminumAlloy, Integer>() {
+                @Override
+                public void updateItem(Integer item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    this.setGraphic(null);
+
+                    if (!empty) {
+                        int rowIndex = this.getIndex() + 1;
+                        this.setText(String.valueOf(rowIndex));
+                    }
+                }
+            };
+            return cell;
+        });
+        lvHeightCol1.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asObject());
+        // 设置为可编辑
+        lvHeightCol1.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
+        // 编辑提交时触发的动作
+        lvHeightCol1.setOnEditCommit((TableColumn.CellEditEvent<AluminumAlloy, Double> t) -> {
+            AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            aluminumAlloy.setHeight(t.getNewValue());
+            aluminumAlloy.refresh();
+            lvTotalData1.setArea(EntityUtil.getAllData(alAlloyTableData1, TotalType.AREA.getType()));
+            lvTotalData1.setAmount(EntityUtil.getAllData(alAlloyTableData1, TotalType.AMOUNT.getType()));
+            alAlloyService.update(aluminumAlloy);
+        });
+        lvWidthCol1.setCellValueFactory(cellData -> cellData.getValue().widthProperty().asObject());
+        lvWidthCol1.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
+        lvWidthCol1.setOnEditCommit((TableColumn.CellEditEvent<AluminumAlloy, Double> t) -> {
+            AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            aluminumAlloy.setWidth(t.getNewValue());
+            aluminumAlloy.refresh();
+            // 刷新总平方
+            lvTotalData1.setArea(EntityUtil.getAllData(alAlloyTableData1, TotalType.AREA.getType()));
+            lvTotalData1.setAmount(EntityUtil.getAllData(alAlloyTableData1, TotalType.AMOUNT.getType()));
+            alAlloyService.update(aluminumAlloy);
+        });
+        lvAreaCol1.setCellValueFactory(cellData -> cellData.getValue().areaProperty().asObject());
+        lvPriceCol1.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+        lvPriceCol1.setCellFactory(column -> new EditCell<>(new DoubleStringConverter()));
+        lvPriceCol1.setOnEditCommit((TableColumn.CellEditEvent<AluminumAlloy, Double> t) -> {
+            AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            aluminumAlloy.setPrice(t.getNewValue());
+            aluminumAlloy.refresh();
+            // 刷新总金额
+            lvTotalData1.setAmount(EntityUtil.getAllData(alAlloyTableData1, TotalType.AMOUNT.getType()));
+            alAlloyService.update(aluminumAlloy);
+        });
+        lvAmountCol1.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
+        lvMaterialCol1.setCellValueFactory(cellData -> cellData.getValue().materialProperty());
+        lvMaterialCol1.setCellFactory(column -> EditCell.createStringEditCell());
+        lvMaterialCol1.setOnEditCommit((TableColumn.CellEditEvent<AluminumAlloy, String> t) -> {
+            AluminumAlloy aluminumAlloy = t.getTableView().getItems().get(t.getTablePosition().getRow());
+            aluminumAlloy.setMaterial(t.getNewValue());
+            alAlloyService.update(aluminumAlloy);
+        });
+
         /**
          * 防盗网
          */
@@ -405,6 +490,14 @@ public class DetailController extends BaseController implements Initializable {
                 id = billService.add(bill);
                 bill.setId(id);
                 billTableData.add(bill);
+                break;
+            case "tab5":
+                AluminumAlloy aluminumAlloy1 = new AluminumAlloy();
+                aluminumAlloy1.setUserId(member.getUserId());
+                aluminumAlloy1.setType(1);
+                id = alAlloyService.add(aluminumAlloy1);
+                aluminumAlloy1.setId(id);
+                alAlloyTableData1.add(aluminumAlloy1);
                 break;
             default:
                 break;

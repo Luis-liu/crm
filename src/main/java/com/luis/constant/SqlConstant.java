@@ -28,7 +28,7 @@ public class SqlConstant {
     /**
      * 新增铝合金
      */
-    public static final String SQL_ADD_ALALLOY = "insert into aluminum_alloy(user_id, height, width, price, material) values(%s, '%s','%s','%s', '%s')";
+    public static final String SQL_ADD_ALALLOY = "insert into aluminum_alloy(user_id, height, width, price, material,type) values(%s, '%s','%s','%s', '%s', '%s')";
 
     /**
      * 更新铝合金
@@ -38,7 +38,7 @@ public class SqlConstant {
     /**
      * 查询铝合金
      */
-    public static final String SQL_QUERY_ALALLOY = "select * from aluminum_alloy where user_id=%s order by id";
+    public static final String SQL_QUERY_ALALLOY = "select * from aluminum_alloy where user_id=%s and type=%s order by id";
 
     /**
      * 新增防盗网

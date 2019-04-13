@@ -28,7 +28,32 @@ public class AlAlloyService extends BaseService<AluminumAlloy> {
     public List<AluminumAlloy> query(Object userId) {
         try {
             List<AluminumAlloy> resultList = new ArrayList<>();
-            String sql = format(SqlConstant.SQL_QUERY_ALALLOY, userId);
+            String sql = format(SqlConstant.SQL_QUERY_ALALLOY, userId, 0);
+            List<Map<String, Object>> mapList = CommonDao.queryInfo(sql);
+            if (mapList != null && mapList.size() > 0) {
+                for (Map<String, Object> map : mapList) {
+                    AluminumAlloy aluminumAlloy = (AluminumAlloy)BeanUtil.fromMapToBean(AluminumAlloy.class, map);
+                    aluminumAlloy.refresh();
+                    resultList.add(aluminumAlloy);
+                }
+            }
+            return resultList;
+        } catch (Exception e) {
+            logger.error("error", e);
+        }
+        return null;
+    }
+
+    /**
+     * 查询
+     * @param entity
+     * @return
+     */
+    @Override
+    public List<AluminumAlloy> queryByEntity(AluminumAlloy entity) {
+        try {
+            List<AluminumAlloy> resultList = new ArrayList<>();
+            String sql = format(SqlConstant.SQL_QUERY_ALALLOY, entity.getUserId(), entity.getType());
             List<Map<String, Object>> mapList = CommonDao.queryInfo(sql);
             if (mapList != null && mapList.size() > 0) {
                 for (Map<String, Object> map : mapList) {
@@ -54,7 +79,7 @@ public class AlAlloyService extends BaseService<AluminumAlloy> {
         try {
             String sql = String.format(SqlConstant.SQL_ADD_ALALLOY, aluminumAlloy.getUserId(),
                     aluminumAlloy.getHeight(), aluminumAlloy.getWidth(),
-                    aluminumAlloy.getPrice(), aluminumAlloy.getMaterial());
+                    aluminumAlloy.getPrice(), aluminumAlloy.getMaterial(), aluminumAlloy.getType());
             id = CommonDao.addInfo(sql);
             logger.info("add aluminumAlloy success");
         } catch (Exception e) {

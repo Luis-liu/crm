@@ -14,8 +14,9 @@ public enum TabNameEnum {
      */
     Al("铝合金"),
     SN("防盗网"),
-    OM("其他"),
-    BL("付款账单")
+    OM("其它"),
+    BL("付款账单"),
+    Al1("其它1"),
     ;
     private String name;
 

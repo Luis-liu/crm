@@ -24,6 +24,7 @@ public class DBOperater extends AbstractDB {
     public static void initDB() {
         crateTable();
         updateTable1();
+        updateTable2();
     }
 
     /**
@@ -46,7 +47,33 @@ public class DBOperater extends AbstractDB {
                 logger.info("updateTable1 exist");
             }
         } catch (SQLException e) {
-            logger.info("updateTable error", e);
+            logger.info("updateTable2 error", e);
+        } finally {
+            releaseConnection(conn, stmt, null);
+        }
+    }
+
+    /**
+     * 更新表2
+     */
+    public static void updateTable2() {
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            conn = ConnectionPool.getInstance().getConnection();
+            DatabaseMetaData meta = conn.getMetaData();
+            ResultSet rs = meta.getColumns(null, null, "ALUMINUM_ALLOY",
+                    "TYPE");
+            if (!rs.next()) {
+                stmt = conn.createStatement();
+                String sql = getSql("update2.sql");
+                stmt.execute(sql);
+                logger.info("updateTable2 success");
+            } else {
+                logger.info("updateTable2 exist");
+            }
+        } catch (SQLException e) {
+            logger.info("updateTable2 error", e);
         } finally {
             releaseConnection(conn, stmt, null);
         }
