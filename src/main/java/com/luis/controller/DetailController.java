@@ -4,19 +4,24 @@ import com.luis.entity.*;
 import com.luis.enums.TabNameEnum;
 import com.luis.enums.TotalType;
 import com.luis.service.*;
+import com.luis.service.impl.ExportDataSeriveImpl;
 import com.luis.util.EditCell;
 import com.luis.util.EntityUtil;
+import com.luis.util.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LocalDateStringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -31,6 +36,7 @@ public class DetailController extends BaseController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(DetailController.class);
 
     private Member member;
+    private ExportDataSerive exportDataSerive = new ExportDataSeriveImpl();
     @FXML
     private Label nameLabel, phoneLabel, addressLabel;
     @FXML
@@ -176,8 +182,7 @@ public class DetailController extends BaseController implements Initializable {
         /**
          * 铝合金
          */
-        lvIdCol.setCellFactory(col -> {
-            TableCell<AluminumAlloy, Integer> cell = new TableCell<AluminumAlloy, Integer>() {
+        lvIdCol.setCellFactory(col -> new TableCell<AluminumAlloy, Integer>() {
                 @Override
                 public void updateItem(Integer item, boolean empty) {
                     super.updateItem(item, empty);
@@ -189,8 +194,6 @@ public class DetailController extends BaseController implements Initializable {
                         this.setText(String.valueOf(rowIndex));
                     }
                 }
-            };
-            return cell;
         });
         lvHeightCol.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asObject());
         // 设置为可编辑
@@ -238,21 +241,17 @@ public class DetailController extends BaseController implements Initializable {
         /**
          * 铝合金1
          */
-        lvIdCol1.setCellFactory(col -> {
-            TableCell<AluminumAlloy, Integer> cell = new TableCell<AluminumAlloy, Integer>() {
-                @Override
-                public void updateItem(Integer item, boolean empty) {
-                    super.updateItem(item, empty);
-                    this.setText(null);
-                    this.setGraphic(null);
-
-                    if (!empty) {
-                        int rowIndex = this.getIndex() + 1;
-                        this.setText(String.valueOf(rowIndex));
-                    }
+        lvIdCol1.setCellFactory(col -> new TableCell<AluminumAlloy, Integer>() {
+            @Override
+            public void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                this.setText(null);
+                this.setGraphic(null);
+                if (!empty) {
+                    int rowIndex = this.getIndex() + 1;
+                    this.setText(String.valueOf(rowIndex));
                 }
-            };
-            return cell;
+            }
         });
         lvHeightCol1.setCellValueFactory(cellData -> cellData.getValue().heightProperty().asObject());
         // 设置为可编辑
@@ -501,6 +500,29 @@ public class DetailController extends BaseController implements Initializable {
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * 导出数据到excel
+     */
+    public void exportData() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("导出数据");
+        fileChooser.setInitialFileName(member.getName() + ".xls");
+        // 默认保存到桌面
+        fileChooser.setInitialDirectory(FileSystemView.getFileSystemView().getHomeDirectory());
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XLS Files", "*.xls"));
+        try {
+            File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+            if (file != null) {
+                exportDataSerive.exportExcelData(detailTabPane, file);
+                Message.showWarnMsg("导出成功");
+            } else {
+                logger.error("showSaveDialog error");
+            }
+        } catch (Exception e) {
+            logger.error("exportData error", e);
         }
     }
 

@@ -53,7 +53,7 @@
     </logger>
 
     <!-- 日志级别 -->
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="INFO" />
         <appender-ref ref="ERROR" />
         <appender-ref ref="STDOUT" />

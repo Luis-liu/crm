@@ -1,5 +1,7 @@
 package com.luis.enums;
 
+import javax.swing.table.TableColumn;
+
 /**
  * All rights Reserved, Designed By HQYG
  * Copyright:   Copyright(C) 2016
@@ -28,4 +30,12 @@ public enum TabNameEnum {
         return name;
     }
 
+    public static TabNameEnum getEnumByName(String name) {
+        for (TabNameEnum tab : TabNameEnum.values()) {
+            if (tab.getName().equals(name)) {
+                return tab;
+            }
+        }
+        return null;
+    }
 }
