@@ -11,7 +11,7 @@
     <properties>
         <spring-version>4.2.2.RELEASE</spring-version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
-        <h2-version>1.4.197</h2-version>
+        <h2-version>2.0.206</h2-version>
         <commons-io.version>2.4</commons-io.version>
         <junit.version>4.11</junit.version>
     </properties>
